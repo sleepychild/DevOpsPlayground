@@ -1,0 +1,22 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+  config.ssh.insert_key = false
+
+  config.vm.define "dh1" do |dh1|
+    dh1.vm.box = "alpine_docker_box"
+    dh1.vm.hostname = "dh1.mario.lab"
+    dh1.vm.network "private_network", name: "vboxnet0", ip: "10.1.1.2", netmask: "24"
+    dh1.vm.network "forwarded_port", guest: 2376, host: 2376, auto_correct: true
+  end
+
+  config.vm.define "dh2" do |dh2|
+    dh2.vm.box = "alpine_docker_box"
+    dh2.vm.hostname = "dh2.mario.lab"
+    dh2.vm.network "private_network", name: "vboxnet0", ip: "10.1.1.3", netmask: "24"
+    dh2.vm.network "forwarded_port", guest: 2376, host: 2376, auto_correct: true
+  end
+
+end

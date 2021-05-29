@@ -1,3 +1,11 @@
+# IGNORE
+boxes/
+OVA/
+iso/
+exercises/
+
+# PYTHON IGNORE
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -127,3 +135,11 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# VAGRANT IGNORE
+
+# General
+.vagrant/
+
+# Log files (if you are creating logs in debug mode, uncomment this)
+*.log
