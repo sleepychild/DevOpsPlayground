@@ -1,8 +1,11 @@
 # IGNORE
+
+# big files not needed in git 
 boxes/
 OVA/
 iso/
 exercises/
+token
 
 # PYTHON IGNORE
 
