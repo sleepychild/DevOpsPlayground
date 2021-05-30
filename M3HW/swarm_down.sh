@@ -6,3 +6,7 @@ state_file="sync/state"
 [[ -f $state_file ]] && rm $state_file
 
 vagrant destroy --force --parallel
+
+# Remove docker context
+docker context use default
+docker context rm remote

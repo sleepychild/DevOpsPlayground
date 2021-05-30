@@ -1,0 +1,25 @@
+version: "3.9"
+
+services: 
+    mariadb:
+        image: 192.168.201.120:5000/appdb
+        build: ./db/
+        networks:
+            - local_net
+        environment: 
+            - MYSQL_ROOT_PASSWORD="${MYSQL_ROOT_PASSWORD}"
+
+    pyweb:
+        image: 192.168.201.120:5000/appweb
+        build: ./web/
+        deploy:
+            replicas: 3
+        ports:
+            - 3000:8080
+        networks:
+            - local_net
+        depends_on: 
+            - mariadb
+
+networks: 
+    local_net:
