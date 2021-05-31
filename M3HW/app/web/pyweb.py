@@ -2,17 +2,22 @@
 import platform
 
 # Database
-import pymysql.cursors
+import mariadb
+import sys
+
 try:
-    connection = pymysql.connect(host='mariadb',
-                                user='root',
-                                password='Pa55W0rd',
-                                database='somedatabase',
-                                charset='utf8mb4',
-                                cursorclass=pymysql.cursors.DictCursor)
-    cursor = connection.cursor()
-except Exception as e:
-    print(e)
+    conn = mariadb.connect(
+        user="someuser",
+        password="somepassword",
+        host="mariadb",
+        port=3306,
+        database="somedatabase"
+    )
+except mariadb.Error as e:
+    print(f"Error connecting to MariaDB Platform: {e}")
+    sys.exit(1)
+
+cur = conn.cursor()
 
 # Web
 from twisted.web.server import Site
@@ -22,8 +27,12 @@ from twisted.internet import reactor, endpoints
 class index(Resource):
     isLeaf = True
     def render_GET(self, request):
-        response_data = b'Welcome from ' + platform.node().encode()
-        return response_data
+        response_data = f'<p>Welcome from {platform.node()}</p>'
+        cur.execute("SELECT somedata FROM sometable;")
+        result = cur.fetchall()
+        for res in result:
+            response_data += f'<p>{res[0]}</p>' 
+        return response_data.encode()
 
 root = Resource()
 root.putChild(b'', index())

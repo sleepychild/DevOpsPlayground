@@ -31,7 +31,7 @@ else
     docker swarm join --token $token $manager_ip:2377 --advertise-addr $ip_address
 fi
 
-# Fix the fucking docker daemon
+# re configure docker
 sudo apk add python3
 sudo /sync/fix_daemon.py
 sudo rc-service docker stop
