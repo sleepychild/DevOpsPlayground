@@ -1,0 +1,10 @@
+- name: Install MariaDB
+  zypper:
+    name: mariadb
+    state: latest
+
+- name: Start MariaDB
+  systemd:
+    name: mariadb
+    state: started
+    enabled: true

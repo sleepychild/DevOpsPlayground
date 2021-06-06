@@ -1,0 +1,3 @@
+- name: Install MariaDB on Suse
+  import_tasks: mariadb_suse.yml
+  when: ansible_os_family == 'Suse'

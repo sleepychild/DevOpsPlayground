@@ -1,0 +1,65 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+  config.ssh.insert_key = false
+
+  config.vm.define "dob-web" do |node|
+    node.vm.box = "ubuntu/focal64"
+    
+    node.vm.provider :virtualbox do |node_vbox|
+      node_vbox.customize ["modifyvm", :id, "--memory", "1024"]
+    end
+
+    node.vm.hostname = "dob-web.mario.lab"
+    node.vm.network "private_network",
+      name: "vboxnet0",
+      ip: "10.1.1.4",
+      netmask: "24",
+      hostname: true
+
+    node.vm.network "forwarded_port",
+      guest: 80, 
+      host: 8080, 
+      auto_correct: true
+    
+    node.vm.provision "shell", path: "provision_web.sh"
+  end
+
+  config.vm.define "dob-db" do |node|
+    node.vm.box = "opensuse/Leap-15.2.x86_64"
+    
+    node.vm.provider :virtualbox do |node_vbox|
+      node_vbox.customize ["modifyvm", :id, "--memory", "1024"]
+    end
+
+    node.vm.hostname = "dob-db.mario.lab"
+    node.vm.network "private_network",
+      name: "vboxnet0",
+      ip: "10.1.1.3",
+      # netmask: "24", if you leave this line the mask get's set to 32
+      hostname: true
+    
+    node.vm.provision "shell", path: "provision_db.sh"
+  end
+
+  config.vm.define "ans" do |node|
+    node.vm.box = "generic/alpine313"
+    
+    node.vm.provider :virtualbox do |node_vbox|
+      node_vbox.customize ["modifyvm", :id, "--memory", "512", '--cpuexecutioncap', '40']
+    end
+    
+    node.vm.hostname = "ans.mario.lab"
+    node.vm.network "private_network",
+      name: "vboxnet0",
+      ip: "10.1.1.2",
+      netmask: "24",
+      hostname: true
+
+    node.vm.synced_folder "sync", "/sync"
+    node.vm.provision "shell", path: "provision_ans.sh"
+  end
+
+end

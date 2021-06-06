@@ -1,0 +1,21 @@
+- name: Install Docker
+  zypper:
+    name: docker
+    state: latest
+
+- name: Start docker daemon
+  systemd:
+    name: docker
+    state: started
+    enabled: true
+
+- name: Add vagrant user to docker group
+  user:
+    name: vagrant
+    groups: docker
+    append: yes
+
+- name: Install docker python SDK
+  pip:
+    name: docker
+    state: latest

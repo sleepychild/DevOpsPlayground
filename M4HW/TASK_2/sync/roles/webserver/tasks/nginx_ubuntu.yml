@@ -1,0 +1,24 @@
+- name: Install nginx
+  apt:
+    name: nginx
+    state: latest
+    install_recommends: yes
+    update_cache: yes
+
+- name: Install php
+  apt:
+    name: php
+    state: latest
+    install_recommends: yes
+
+- name: Install php-fpm
+  apt:
+    name: php-fpm
+    state: latest
+    install_recommends: yes
+
+- name: Install php-mysql
+  apt:
+    name: php-mysql
+    state: latest
+    install_recommends: yes
