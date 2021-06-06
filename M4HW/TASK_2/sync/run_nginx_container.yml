@@ -1,9 +1,0 @@
----
-- hosts: docker_hosts
-  tasks:
-    - name: Start nginx container
-      docker_container:
-        name: nginx
-        image: "nginx:stable-alpine"
-        ports:
-         - "8080:80"

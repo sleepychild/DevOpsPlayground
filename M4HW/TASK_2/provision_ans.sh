@@ -18,5 +18,8 @@ inventory = /sync/inventory/
 scp_if_ssh=True
 EOF
 
+echo "Install ansible requirements"
+ansible-galaxy install -r /sync/requirements.yml
+
 echo "Role setup"
 ansible-playbook /sync/base_playbook.yml

@@ -38,7 +38,7 @@ Vagrant.configure("2") do |config|
     node.vm.network "private_network",
       name: "vboxnet0",
       ip: "10.1.1.3",
-      # netmask: "24", if you leave this line the mask get's set to 32
+      # netmask: "24", BUG: this line the mask gets set to 32
       hostname: true
     
     node.vm.provision "shell", path: "provision_db.sh"

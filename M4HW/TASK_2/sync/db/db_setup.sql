@@ -1,7 +1,11 @@
-create database bulgaria character set utf8 collate utf8_general_ci;
-grant all on bulgaria.* to 'web_user'@'%' identified by 'Password1';
+create database if not exists bulgaria character set utf8 collate utf8_general_ci;
+
+grant all on bulgaria.* to 'web_user'@'dob-web' identified by 'Password1';
+
 use bulgaria;
+
 create table cities (id int primary key auto_increment, city_name varchar(50), population int);
+
 INSERT INTO cities (city_name, population) VALUES ('София', 1236047);
 INSERT INTO cities (city_name, population) VALUES ('Пловдив', 343424);
 INSERT INTO cities (city_name, population) VALUES ('Варна', 335177);

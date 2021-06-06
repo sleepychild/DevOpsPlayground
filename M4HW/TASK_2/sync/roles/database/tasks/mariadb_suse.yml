@@ -1,10 +1,42 @@
+- name: Insert dob-web entry to etc hosts
+  lineinfile:
+    path: /etc/hosts
+    line: 10.1.1.4 dob-web
+
+- name: Copy database setup
+  copy:
+    src: /sync/db/db_setup.sql
+    dest: /home/vagrant
+
 - name: Install MariaDB
   zypper:
     name: mariadb
     state: latest
+
+- name: Fix mariadb bind-address
+  lineinfile:
+    path: /etc/my.cnf
+    regexp: '^bind-address'
+    line: bind-address    = 0.0.0.0
 
 - name: Start MariaDB
   systemd:
     name: mariadb
     state: started
     enabled: true
+
+- name: Removes all anonymous user accounts
+  community.mysql.mysql_user:
+    name: ''
+    host_all: yes
+    state: absent
+
+- name: Execute db_setup.sql
+  shell: mariadb < db_setup.sql > db_setup.out
+  args:
+    creates: db_setup.out
+
+- name: Restart MariaDB
+  systemd:
+    name: mariadb
+    state: restarted
