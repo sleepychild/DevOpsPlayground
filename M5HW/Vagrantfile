@@ -1,0 +1,41 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+  config.ssh.insert_key = false
+  
+  config.vm.box = "ubuntu/focal64"
+
+  config.vm.define "slave" do |node|
+    node.vm.provider :virtualbox do |node_vbox|
+      node_vbox.customize ["modifyvm", :id, "--memory", "1024"]
+    end
+    node.vm.hostname = "slave.mario.lab"
+    node.vm.network "private_network",
+      name: "vboxnet0",
+      ip: "10.1.1.3",
+      netmask: "24",
+      hostname: true
+
+    node.vm.synced_folder "sync", "/sync"
+    node.vm.provision "shell", path: "provision.sh"
+  end
+
+
+  config.vm.define "master" do |node|
+    node.vm.provider :virtualbox do |node_vbox|
+      node_vbox.customize ["modifyvm", :id, "--memory", "1024"]
+    end
+    node.vm.hostname = "master.mario.lab"
+    node.vm.network "private_network",
+      name: "vboxnet0",
+      ip: "10.1.1.2",
+      netmask: "24",
+      hostname: true
+
+    node.vm.synced_folder "sync", "/sync"
+    node.vm.provision "shell", path: "provision.sh"
+  end
+
+end
