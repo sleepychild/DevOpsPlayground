@@ -18,7 +18,7 @@ sudo apt-get --assume-yes install ansible sshpass
 echo "Write ansible config"
 
 if [[ -f ansible.cfg ]]; then
-rm ansible.cfg
+    rm ansible.cfg
 fi
 
 tee <<EOF ansible.cfg

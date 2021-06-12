@@ -1,0 +1,1 @@
+{"changed": true, "result": "", "actions": ["New Swarm cluster created: xq989khsst8arhw2ml1361u0o"], "swarm_facts": {"JoinTokens": {"Worker": "SWMTKN-1-0darlsayzessvv9g1ywbx8bx69vyj72ln66c44xggqnzvx8zb6-a9y01gr6h30eyaj9rapanizjt", "Manager": "SWMTKN-1-0darlsayzessvv9g1ywbx8bx69vyj72ln66c44xggqnzvx8zb6-2momm6y3fjfvfqav4w9izcw7p"}, "UnlockKey": null}, "failed": false}
