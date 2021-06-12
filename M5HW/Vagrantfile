@@ -27,12 +27,28 @@ Vagrant.configure("2") do |config|
     node.vm.provider :virtualbox do |node_vbox|
       node_vbox.customize ["modifyvm", :id, "--memory", "1024"]
     end
+    
     node.vm.hostname = "master.mario.lab"
+
     node.vm.network "private_network",
       name: "vboxnet0",
       ip: "10.1.1.2",
       netmask: "24",
       hostname: true
+    
+    node.vm.network "forwarded_port",
+      guest: 2376, 
+      host: 2376, 
+      auto_correct: true
+
+    node.vm.network "forwarded_port",
+      guest: 5000, 
+      host: 5000, 
+      auto_correct: true
+  
+    node.vm.network "public_network",
+      ip: "192.168.201.120",
+      bridge: "enp0s31f6"
 
     node.vm.synced_folder "sync", "/sync"
     node.vm.provision "shell", path: "provision.sh"

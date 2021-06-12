@@ -30,3 +30,13 @@
     name: vagrant
     groups: docker
     append: yes
+
+- name: Copy docker daemon config
+  copy:
+    src: /sync/etc/docker/daemon.json
+    dest: /etc/docker/daemon.json
+
+# - name: Restart Docker Daemon
+#   systemd:
+#     name: 
+#     state: restarted

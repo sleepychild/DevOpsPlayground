@@ -48,21 +48,21 @@
         join_token: swarm_init_result.swarm_facts.JoinTokens.Manager
         remote_addrs: [ '10.1.1.2:2377' ]
 
-# master: TASK [Show swarm init result] **************************************************
-# master: ok: [master] => {
-# master:     "swarm_init_result": {
-# master:         "actions": [
-# master:             "New Swarm cluster created: o8wlxxk0z3fb5d3rjunsa11xa"
-# master:         ],
-# master:         "changed": true,
-# master:         "failed": false,
-# master:         "result": "",
-# master:         "swarm_facts": {
-# master:             "JoinTokens": {
-# master:                 "Manager": "SWMTKN-1-476bxxfnjvv3obsmsjwr4bub8o5rvrzbrjbjr2j5c31h6khhcl-dpjbzy6q73kxmdruiczsbh2jl",
-# master:                 "Worker": "SWMTKN-1-476bxxfnjvv3obsmsjwr4bub8o5rvrzbrjbjr2j5c31h6khhcl-4b4se1e4pqmpca0h79reb6mcl"
-# master:             },
-# master:             "UnlockKey": null
-# master:         }
-# master:     }
-# master: }
+# TASK [Show swarm init result] **************************************************
+# ok: [master] => {
+#     "swarm_init_result": {
+#         "actions": [
+#             "New Swarm cluster created: o8wlxxk0z3fb5d3rjunsa11xa"
+#         ],
+#         "changed": true,
+#         "failed": false,
+#         "result": "",
+#         "swarm_facts": {
+#             "JoinTokens": {
+#                 "Manager": "SWMTKN-1-476bxxfnjvv3obsmsjwr4bub8o5rvrzbrjbjr2j5c31h6khhcl-dpjbzy6q73kxmdruiczsbh2jl",
+#                 "Worker": "SWMTKN-1-476bxxfnjvv3obsmsjwr4bub8o5rvrzbrjbjr2j5c31h6khhcl-4b4se1e4pqmpca0h79reb6mcl"
+#             },
+#             "UnlockKey": null
+#         }
+#     }
+# }
