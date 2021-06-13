@@ -23,6 +23,8 @@ fi
 
 tee <<EOF ansible.cfg
 [defaults]
+debug = True
+enable_task_debugger = True
 interpreter_python = /usr/bin/env python3
 host_key_checking = False
 inventory = /sync/inventory/
