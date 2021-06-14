@@ -9,12 +9,23 @@
   args:
     creates: /etc/apt/sources.list.d/docker.list
 
-- name: Install packages
+- name: Install docker-ce
   apt:
-    pkg:
-      - docker-ce
-      - docker-ce-cli
-      - containerd.io
+    name: docker-ce
+    state: latest
+    install_recommends: yes
+    update_cache: yes
+
+- name: Install docker-ce-cli
+  apt:
+    name: docker-ce-cli
+    state: latest
+    install_recommends: yes
+    update_cache: yes
+
+- name: Install containerd.io
+  apt:
+    name: containerd.io
     state: latest
     install_recommends: yes
     update_cache: yes

@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 echo "PROVISION MASHINE $HOSTNAME"
+
 sudo apt-get update
 # sudo apt-get --assume-yes upgrade
 sudo apt-get --assume-yes install python3-pip
@@ -11,27 +12,9 @@ sudo sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/s
 
 sudo systemctl restart sshd
 
-if [[ $HOSTNAME == master ]]; then
+state_file="/sync/state"
+host_index=$(echo $HOSTNAME | cut -d'-' -f 2)
+ip_address=$(ip addr show | grep 'inet 10.1.1.' | cut -d'/' -f 1 | awk '{print $2}')
 
-sudo apt-get --assume-yes install ansible sshpass
-
-echo "Write ansible config"
-
-if [[ -f ansible.cfg ]]; then
-    rm ansible.cfg
-fi
-
-tee <<EOF ansible.cfg
-[defaults]
-debug = True
-enable_task_debugger = True
-interpreter_python = /usr/bin/env python3
-host_key_checking = False
-inventory = /sync/inventory/
-EOF
-
-echo "Base Playbook"
-
-ansible-playbook /sync/base_playbook.yml
-
-fi
+# Log Host
+echo -e "$HOSTNAME:$ip_address" >> $state_file
