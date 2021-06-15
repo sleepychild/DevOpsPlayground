@@ -1,1 +1,1 @@
-{"debug": true, "tls": false, "hosts": ["tcp://0.0.0.0:2376"], "insecure-registries": ["192.168.201.120:5000"]}
+{"debug": true, "tls": false, "insecure-registries": ["192.168.201.120:5000"]}

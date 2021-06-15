@@ -40,12 +40,12 @@
     #     name: swarm_init_result
     # - name: Show swarm init result
     #   debug:
-    #     var: swarm_init_result.swarm_facts.JoinTokens.Manager
-    # - name: Join swarm as manager
+    #     var: swarm_init_result.swarm_facts.JoinTokens.Worker
+    # - name: Join swarm as Worker
     #   docker_swarm:
     #     advertise_addr: 10.1.1.3
     #     state: join
-    #     join_token: swarm_init_result.swarm_facts.JoinTokens.Manager
+    #     join_token: swarm_init_result.swarm_facts.JoinTokens.Worker
     #     remote_addrs: [ '10.1.1.2:2377' ]
 
 # TASK [Show swarm init result] **************************************************

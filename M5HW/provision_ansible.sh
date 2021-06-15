@@ -23,4 +23,4 @@ EOF
 
 echo "Base Playbook"
 
-ansible-playbook -vvvv /sync/base_playbook.yml
+ansible-playbook /sync/base_playbook.yml

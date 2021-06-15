@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo "PROVISION MASHINE $HOSTNAME"
+echo "PROVISION MACHINE $HOSTNAME"
 
 sudo apt-get update
 # sudo apt-get --assume-yes upgrade

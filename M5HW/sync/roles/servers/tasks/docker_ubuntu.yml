@@ -21,14 +21,12 @@
     name: docker-ce-cli
     state: latest
     install_recommends: yes
-    update_cache: yes
 
 - name: Install containerd.io
   apt:
     name: containerd.io
     state: latest
     install_recommends: yes
-    update_cache: yes
 
 - name: Install Docker SDK for Python
   pip:
@@ -47,7 +45,23 @@
     src: /sync/etc/docker/daemon.json
     dest: /etc/docker/daemon.json
 
-# - name: Restart Docker Daemon
-#   systemd:
-#     name: 
-#     state: restarted
+- name: Create a directory if it does not exist
+  file:
+    path: /etc/systemd/system/docker.service.d/
+    state: directory
+
+- name: Copy docker daemon unit override
+  copy:
+    src: /sync/etc/systemd/system/docker.service.d/override.conf
+    dest: /etc/systemd/system/docker.service.d/override.conf
+
+- name: Restart Docker Daemon
+  systemd:
+    name: docker
+    daemon-reload: yes
+    state: restarted
+
+- name: create remote context
+  shell: docker context create --docker host=tcp://localhost:2375 remote && docker context use remote > docker-remote
+  args:
+    creates: docker-remote
