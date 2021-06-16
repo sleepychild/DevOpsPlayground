@@ -62,6 +62,6 @@
     state: restarted
 
 - name: create remote context
-  shell: docker context create --docker host=tcp://localhost:2375 remote && docker context use remote > docker-remote
+  shell: docker context create --docker host=tcp://localhost:2375 remote && docker context use remote > ~/.docker-is-remote
   args:
-    creates: docker-remote
+    creates: ~/.docker-is-remote

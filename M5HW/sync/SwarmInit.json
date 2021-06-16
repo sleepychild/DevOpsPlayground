@@ -1,1 +1,0 @@
-{"changed": true, "result": "", "actions": ["New Swarm cluster created: pd6anyq9a3e7wqbdrcxbcmjhz"], "swarm_facts": {"JoinTokens": {"Worker": "SWMTKN-1-1i93oqqp8gb673eurf1rwfp22dncrqg8oxyt9km1ugerjneozw-8gs2j777mxo4wvxk5zqm81hp4", "Manager": "SWMTKN-1-1i93oqqp8gb673eurf1rwfp22dncrqg8oxyt9km1ugerjneozw-8ag73raybcsajhwvbmhscpuoe"}, "UnlockKey": null}, "failed": false}
