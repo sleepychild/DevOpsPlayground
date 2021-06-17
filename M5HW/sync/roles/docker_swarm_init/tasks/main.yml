@@ -1,0 +1,6 @@
+- name: Docker Swarm Init
+  import_tasks: docker_swarm_init.yml
+  when: ansible_os_family == 'Debian'
+
+- name: Create Docker Registry Service
+  import_tasks: docker_service_create_registry.yml

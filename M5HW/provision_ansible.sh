@@ -23,4 +23,8 @@ EOF
 
 echo "Base Playbook"
 
-ansible-playbook /sync/base_playbook.yml
+# This need to be two separate playbooks or they hang
+# ansible-playbook /sync/base_playbook.yml
+ansible-playbook /sync/servers_playbook.yml
+ansible-playbook /sync/docker_playbook.yml
+ansible-playbook /sync/jenkins_playbook.yml

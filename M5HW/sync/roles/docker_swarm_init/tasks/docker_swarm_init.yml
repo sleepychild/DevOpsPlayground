@@ -1,0 +1,19 @@
+- name: Remove a swarm manager
+  docker_swarm:
+    state: absent
+    force: true
+
+- name: Init a new swarm with default parameters
+  docker_swarm:
+    advertise_addr: 10.1.1.2
+    state: present
+  register: swarm_init_result
+
+- name: Show swarm init result
+  debug:
+    var: swarm_init_result
+
+- name: Save swarm init reuslt
+  copy:
+    content: "{{ swarm_init_result }}"
+    dest: /sync/SwarmInit.json

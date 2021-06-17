@@ -17,6 +17,3 @@ vagrant up
 # Create docker context
 docker context create remote --default-stack-orchestrator=swarm --docker host=tcp://localhost:2375
 docker context use remote
-
-# Create docker registry
-docker service create --name registry --publish published=5000,target=5000 registry:2
