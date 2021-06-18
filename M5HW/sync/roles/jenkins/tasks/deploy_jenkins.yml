@@ -14,8 +14,11 @@
 - name: Run Jenkins container
   docker_container:
     name: jenkins-docker-run
-    image: 192.168.201.120:5000/jenkins/jenkins-docker
+    privileged: yes
+    image: 192.168.201.120:5000/jenkins
     pull: yes
+    # networks:
+    #   - name: jenkins
 
 # From https://www.jenkins.io/doc/book/installing/docker/
 # docker run \

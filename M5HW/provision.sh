@@ -12,7 +12,7 @@ sudo sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/s
 
 sudo systemctl restart sshd
 
-# This should go into a playbook
+# This should be part of a dynamic host setup for ansible
 # state_file="/sync/state"
 # host_index=$(echo $HOSTNAME | cut -d'-' -f 2)
 # ip_address=$(ip addr show | grep 'inet 10.1.1.' | cut -d'/' -f 1 | awk '{print $2}')
