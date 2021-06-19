@@ -6,6 +6,7 @@
       lineinfile:
         path: /etc/hosts
         line: 10.1.1.3 node-2
+      become: yes
 
 - name: Setup node-2
   hosts: node-2
@@ -14,3 +15,4 @@
       lineinfile:
         path: /etc/hosts
         line: 10.1.1.2 node-1
+      become: yes

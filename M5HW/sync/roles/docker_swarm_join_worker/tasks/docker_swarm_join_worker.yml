@@ -15,6 +15,10 @@
     remote_addrs: [ '10.1.1.2:2377' ]
 
 - name: create remote context
-  shell: docker context create --docker host=tcp://10.1.1.2:2375 remote && docker context use remote > ~/.docker-is-remote
+  shell: |
+    docker context create --docker host=tcp://10.1.1.2:2375 remote
+    docker context use remote
+    touch .docker-is-remote
   args:
-    creates: ~/.docker-is-remote
+    chdir: /home/vagrant/
+    creates: .docker-is-remote

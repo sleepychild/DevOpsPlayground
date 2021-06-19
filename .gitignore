@@ -10,6 +10,7 @@ token
 state
 sync_result.out
 SwarmInit.json
+initialAdminPassword
 
 # PYTHON IGNORE
 

@@ -2,6 +2,7 @@
   apt_key:
     url: https://pkg.jenkins.io/debian-stable/jenkins.io.key
     state: present
+  become: yes
 
 - name: Add Jenkins Repo
   shell: echo "deb https://pkg.jenkins.io/debian-stable binary/" | sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null
@@ -14,18 +15,21 @@
     state: latest
     install_recommends: yes
     update_cache: yes
+  become: yes
 
 - name: Install jenkins
   apt:
     name: jenkins
     state: latest
     install_recommends: yes
+  become: yes
 
 - name: Stop jenkins
   systemd:
     name: jenkins
     daemon-reload: yes
     state: stopped
+  become: yes
 
 - name: Prep jenkis user
   user:
@@ -37,6 +41,7 @@
     ssh_key_bits: 2048
     ssh_key_file: .ssh/id_rsa
     shell: /bin/bash
+  become: yes
 
 - name: Set jenkins user as sudoer
   copy:
@@ -45,75 +50,13 @@
     owner: root
     group: root
     mode: 0440
-
-# - name: Copy jenkins
-#   become: yes
-#   copy:
-#     src: /sync/var/lib/jenkins/
-#     dest: /var/lib/jenkins/
-#     owner: jenkins
-#     group: jenkins
-
-# - name: Copy jenkins config
-#   become: yes
-#   copy:
-#     src: /sync/var/lib/jenkins/config.xml
-#     dest: /var/lib/jenkins/config.xml
-#     owner: jenkins
-#     group: jenkins
-
-# - name: Copy jenkins credentials
-#   become: yes
-#   copy:
-#     src: /sync/var/lib/jenkins/credentials.xml
-#     dest: /var/lib/jenkins/credentials.xml
-#     owner: jenkins
-#     group: jenkins
-
-# - name: Copy jenkins jobs
-#   become: yes
-#   copy:
-#     src: /sync/var/lib/jenkins/jobs/
-#     dest: /var/lib/jenkins/jobs/
-#     owner: jenkins
-#     group: jenkins
-
-# - name: Copy jenkins nodes
-#   become: yes
-#   copy:
-#     src: /sync/var/lib/jenkins/nodes/
-#     dest: /var/lib/jenkins/nodes/
-#     owner: jenkins
-#     group: jenkins
-
-# - name: Copy jenkins plugins
-#   become: yes
-#   copy:
-#     src: /sync/var/lib/jenkins/plugins/
-#     dest: /var/lib/jenkins/plugins/
-#     owner: jenkins
-#     group: jenkins
-
-# - name: Copy jenkins secrets
-#   become: yes
-#   copy:
-#     src: /sync/var/lib/jenkins/secrets/
-#     dest: /var/lib/jenkins/secrets/
-#     owner: jenkins
-#     group: jenkins
-
-# - name: Copy jenkins users
-#   become: yes
-#   copy:
-#     src: /sync/var/lib/jenkins/users/
-#     dest: /var/lib/jenkins/users/
-#     owner: jenkins
-#     group: jenkins
+  become: yes
 
 - name: Copy jenkins
   shell: rsync -r /sync/var/lib/jenkins /var/lib > /sync/sync_result.out
   args:
     creates: /sync/sync_result.out
+  become: yes
 
 - name: Set ownership jenkins
   file:
@@ -122,17 +65,16 @@
     recurse: yes
     owner: jenkins
     group: jenkins
-
-- name: Copy jenkins initial admin password
-  shell: sudo cp /var/lib/jenkins/secrets/initialAdminPassword /sync/initialAdminPassword
-  args:
-    creates: /sync/initialAdminPassword
+  become: yes
 
 - name: Start jenkins
   systemd:
     name: jenkins
     state: started
+  become: yes
 
-# TODO
-# Auto setup 
-# Copy jenkins ssh key to localhost
+- name: Copy jenkins initial admin password
+  shell: cp /var/lib/jenkins/secrets/initialAdminPassword /sync/initialAdminPassword
+  args:
+    creates: /sync/initialAdminPassword
+  become: yes

@@ -8,6 +8,7 @@
     ssh_key_bits: 2048
     ssh_key_file: .ssh/id_rsa
     shell: /bin/bash
+  become: yes
 
 - name: Set jenkins user as sudoer
   copy:
@@ -16,3 +17,4 @@
     owner: root
     group: root
     mode: 0440
+  become: yes
