@@ -28,4 +28,7 @@ ansible-playbook /sync/jenkins_master_playbook.yml
 
 ansible-playbook /sync/docker_install_playbook.yml
 ansible-playbook /sync/docker_swarm_playbook.yml # vagrant needs to logout and login again to run docker commands
+
+sleep 120 # we need to have a working swarm before we join it
+
 ansible-playbook /sync/docker_join_playbook.yml

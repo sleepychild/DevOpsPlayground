@@ -1,9 +1,0 @@
-Started by timer
-Running as SYSTEM
-Building on master in workspace /var/lib/jenkins/workspace/Maintenance/Backup Jenkins
-[Backup Jenkins] $ /bin/sh -xe /tmp/jenkins3769777806535764936.sh
-+ sudo rsync /var/lib/jenkins/config.xml /sync/var/lib/jenkins/config.xml
-[Backup Jenkins] $ /bin/sh -xe /tmp/jenkins5614191886338980224.sh
-+ sudo rsync /var/lib/jenkins/credentials.xml /sync/var/lib/jenkins/credentials.xml
-[Backup Jenkins] $ /bin/sh -xe /tmp/jenkins1173699108838842095.sh
-+ sudo rsync -r /var/lib/jenkins/jobs /sync/var/lib/jenkins
