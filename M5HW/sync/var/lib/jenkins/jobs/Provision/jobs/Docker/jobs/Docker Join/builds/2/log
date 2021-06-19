@@ -1,0 +1,26 @@
+Started by user [8mha:////4H7l/wRTNUqClynMAv8n8cUT2TN3RAdVly0ThLb4zz9JAAAAlx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzeEgZu/dLi1CL9xJTczDwACG0V4sAAAAA=[0mMario Kukucov
+Running as SYSTEM
+Building in workspace /var/lib/jenkins/workspace/Provision/Docker/Docker Join
+[Docker Join] $ /bin/sh -xe /tmp/jenkins10588258747720438809.sh
++ ansible-playbook /sync/docker_join_playbook.yml
+
+PLAY [docker_swarm_join_worker] ************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [node-2]
+
+TASK [docker_swarm_join_worker : Load swarm_init_result] ***********************
+ok: [node-2]
+
+TASK [docker_swarm_join_worker : Show swarm init result] ***********************
+ok: [node-2] => {
+    "swarm_init_result.swarm_facts.JoinTokens.Worker": "SWMTKN-1-3vtsa4prmi6wdnvvok4b229609ji00nnijru71wvbbgi64jw0f-45gag0ri78vuunx931maz3srf"
+}
+
+TASK [docker_swarm_join_worker : Join swarm as Worker] *************************
+changed: [node-2]
+
+PLAY RECAP *********************************************************************
+node-2                     : ok=4    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+Finished: SUCCESS

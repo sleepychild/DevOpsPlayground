@@ -1,0 +1,7 @@
+- name: Setup User Jenkins
+  import_tasks: setup_jdk.yml
+  when: ansible_os_family == 'Debian'
+
+- name: Setup User Jenkins
+  import_tasks: setup_user_jenkins.yml
+  when: ansible_os_family == 'Debian'

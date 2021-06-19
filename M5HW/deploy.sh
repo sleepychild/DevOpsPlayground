@@ -3,15 +3,6 @@
 # Update boxes
 vagrant box update
 
-# Set state file
-state_file="sync/state"
-
-# If state file exists remove it
-[[ -f $state_file ]] && rm $state_file
-
-# If State file does not exist create it
-[[ ! -f $state_file ]] && touch $state_file
-
 vagrant up
 
 # Create docker context

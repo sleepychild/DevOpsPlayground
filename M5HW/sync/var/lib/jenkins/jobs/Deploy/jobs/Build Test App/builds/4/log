@@ -1,0 +1,227 @@
+Started by an SCM change
+Running as SYSTEM
+Building remotely on [8mha:////4MyCSz62rCYUJJ6n3DIvJraLDC4yccoQ2qnCvm9ORS2oAAAAmx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAy2EgYB/eT83ILSktQi/TygO3WNAAHkn4LFAAAA[0mnode-2 in workspace /home/vagrant/workspace/Deploy/Build Test App
+The recommended git tool is: NONE
+No credentials specified
+Cloning the remote Git repository
+Cloning repository https://github.com/sleepychild/DevOpsPlaygroundTestApp.git
+ > git init /home/vagrant/workspace/Deploy/Build Test App # timeout=10
+Fetching upstream changes from https://github.com/sleepychild/DevOpsPlaygroundTestApp.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.25.1'
+ > git fetch --tags --force --progress -- https://github.com/sleepychild/DevOpsPlaygroundTestApp.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/sleepychild/DevOpsPlaygroundTestApp.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision 71316bedb0bc8161039dde1ed2a68312f3178baf (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 71316bedb0bc8161039dde1ed2a68312f3178baf # timeout=10
+Commit message: "Just for the sake of commiting"
+ > git rev-list --no-walk 77375b99f2f92fe62edb84814fd9f23af98bdf1f # timeout=10
+[Build Test App] $ /bin/sh -xe /tmp/jenkins15516786034932323614.sh
++ ./deploy.sh
+Building mariadb
+Sending build context to Docker daemon   7.68kB
+Step 1/2 : FROM mariadb:10.5
+10.5: Pulling from library/mariadb
+c549ccf8d472: Pulling fs layer
+26ea6552a462: Pulling fs layer
+329b1f41043f: Pulling fs layer
+9f8d09317d80: Pulling fs layer
+2bc055a5511d: Pulling fs layer
+e989e430508e: Pulling fs layer
+201c98fa16f6: Pulling fs layer
+cc09fec0bce1: Pulling fs layer
+1c9b9043bdda: Pulling fs layer
+f0e596ee38c5: Pulling fs layer
+9f8d09317d80: Waiting
+2bc055a5511d: Waiting
+e989e430508e: Waiting
+201c98fa16f6: Waiting
+cc09fec0bce1: Waiting
+1c9b9043bdda: Waiting
+f0e596ee38c5: Waiting
+26ea6552a462: Verifying Checksum
+26ea6552a462: Download complete
+329b1f41043f: Verifying Checksum
+329b1f41043f: Download complete
+c549ccf8d472: Verifying Checksum
+c549ccf8d472: Download complete
+2bc055a5511d: Verifying Checksum
+2bc055a5511d: Download complete
+9f8d09317d80: Verifying Checksum
+9f8d09317d80: Download complete
+e989e430508e: Verifying Checksum
+e989e430508e: Download complete
+cc09fec0bce1: Verifying Checksum
+cc09fec0bce1: Download complete
+201c98fa16f6: Download complete
+c549ccf8d472: Pull complete
+f0e596ee38c5: Verifying Checksum
+f0e596ee38c5: Download complete
+26ea6552a462: Pull complete
+329b1f41043f: Pull complete
+9f8d09317d80: Pull complete
+2bc055a5511d: Pull complete
+e989e430508e: Pull complete
+201c98fa16f6: Pull complete
+cc09fec0bce1: Pull complete
+1c9b9043bdda: Verifying Checksum
+1c9b9043bdda: Download complete
+1c9b9043bdda: Pull complete
+f0e596ee38c5: Pull complete
+Digest: sha256:cf656762c1727a4e08d838aea95973767cb7a9f7151532f38657189ae57051cc
+Status: Downloaded newer image for mariadb:10.5
+ ---> 104f4e7cbe83
+Step 2/2 : ADD init.sql //docker-entrypoint-initdb.d/init.sql
+ ---> 6990061574b4
+Successfully built 6990061574b4
+Successfully tagged 192.168.201.120:5000/appdb:latest
+Building pyweb
+Sending build context to Docker daemon  4.608kB
+Step 1/9 : FROM python:3.9.5-alpine3.13
+3.9.5-alpine3.13: Pulling from library/python
+540db60ca938: Pulling fs layer
+d037ddac5dde: Pulling fs layer
+629719f9106a: Pulling fs layer
+f9ef3a05a91e: Pulling fs layer
+0faf4e7f2207: Pulling fs layer
+f9ef3a05a91e: Waiting
+0faf4e7f2207: Waiting
+d037ddac5dde: Verifying Checksum
+d037ddac5dde: Download complete
+540db60ca938: Verifying Checksum
+540db60ca938: Download complete
+f9ef3a05a91e: Verifying Checksum
+f9ef3a05a91e: Download complete
+540db60ca938: Pull complete
+d037ddac5dde: Pull complete
+0faf4e7f2207: Download complete
+629719f9106a: Download complete
+629719f9106a: Pull complete
+f9ef3a05a91e: Pull complete
+0faf4e7f2207: Pull complete
+Digest: sha256:27c650557ac417c20c4257e669ccd08c1df51966e36e2aab48b83076ea2c2122
+Status: Downloaded newer image for python:3.9.5-alpine3.13
+ ---> 2d64a2341b7c
+Step 2/9 : RUN apk update && apk upgrade
+ ---> Running in f87734b465cd
+fetch https://dl-cdn.alpinelinux.org/alpine/v3.13/main/x86_64/APKINDEX.tar.gz
+fetch https://dl-cdn.alpinelinux.org/alpine/v3.13/community/x86_64/APKINDEX.tar.gz
+v3.13.5-206-gf9124ca7db [https://dl-cdn.alpinelinux.org/alpine/v3.13/main]
+v3.13.5-205-gb75f01a32f [https://dl-cdn.alpinelinux.org/alpine/v3.13/community]
+OK: 13891 distinct packages available
+(1/2) Upgrading musl (1.2.2-r0 -> 1.2.2-r1)
+(2/2) Upgrading musl-utils (1.2.2-r0 -> 1.2.2-r1)
+Executing busybox-1.32.1-r6.trigger
+OK: 15 MiB in 36 packages
+Removing intermediate container f87734b465cd
+ ---> a0d07af5896c
+Step 3/9 : RUN apk add --no-cache build-base jpeg-dev zlib-dev libffi-dev mariadb-dev python3-dev py3-pip py3-mysqlclient
+ ---> Running in 6c0745c1f82c
+fetch https://dl-cdn.alpinelinux.org/alpine/v3.13/main/x86_64/APKINDEX.tar.gz
+fetch https://dl-cdn.alpinelinux.org/alpine/v3.13/community/x86_64/APKINDEX.tar.gz
+(1/63) Installing libgcc (10.2.1_pre1-r3)
+(2/63) Installing libstdc++ (10.2.1_pre1-r3)
+(3/63) Installing binutils (2.35.2-r1)
+(4/63) Installing libmagic (5.39-r0)
+(5/63) Installing file (5.39-r0)
+(6/63) Installing libgomp (10.2.1_pre1-r3)
+(7/63) Installing libatomic (10.2.1_pre1-r3)
+(8/63) Installing libgphobos (10.2.1_pre1-r3)
+(9/63) Installing gmp (6.2.1-r0)
+(10/63) Installing isl22 (0.22-r0)
+(11/63) Installing mpfr4 (4.1.0-r0)
+(12/63) Installing mpc1 (1.2.0-r0)
+(13/63) Installing gcc (10.2.1_pre1-r3)
+(14/63) Installing musl-dev (1.2.2-r1)
+(15/63) Installing libc-dev (0.7.2-r3)
+(16/63) Installing g++ (10.2.1_pre1-r3)
+(17/63) Installing make (4.3-r0)
+(18/63) Installing fortify-headers (1.1-r0)
+(19/63) Installing patch (2.7.6-r6)
+(20/63) Installing build-base (0.5-r2)
+(21/63) Installing libjpeg-turbo (2.1.0-r0)
+(22/63) Installing pkgconf (1.7.3-r0)
+(23/63) Installing libjpeg-turbo-dev (2.1.0-r0)
+(24/63) Installing jpeg-dev (9d-r1)
+(25/63) Installing linux-headers (5.7.8-r0)
+(26/63) Installing libffi-dev (3.3-r2)
+(27/63) Installing openssl-dev (1.1.1k-r0)
+(28/63) Installing zlib-dev (1.2.11-r3)
+(29/63) Installing mariadb-connector-c (3.1.11-r0)
+(30/63) Installing mariadb-connector-c-dev (3.1.11-r0)
+(31/63) Installing mariadb-common (10.5.10-r0)
+(32/63) Installing libaio (0.3.112-r1)
+(33/63) Installing pcre2 (10.36-r0)
+(34/63) Installing mariadb-embedded (10.5.10-r0)
+(35/63) Installing mariadb-dev (10.5.10-r0)
+(36/63) Installing py3-mysqlclient (2.0.1-r0)
+(37/63) Installing python3 (3.8.10-r0)
+(38/63) Installing py3-appdirs (1.4.4-r1)
+(39/63) Installing py3-ordered-set (4.0.2-r0)
+(40/63) Installing py3-parsing (2.4.7-r1)
+(41/63) Installing py3-six (1.15.0-r0)
+(42/63) Installing py3-packaging (20.9-r0)
+(43/63) Installing py3-setuptools (51.3.3-r0)
+(44/63) Installing py3-chardet (4.0.0-r0)
+(45/63) Installing py3-idna (3.1-r0)
+(46/63) Installing py3-urllib3 (1.26.2-r1)
+(47/63) Installing py3-requests (2.25.1-r1)
+(48/63) Installing py3-msgpack (1.0.2-r0)
+(49/63) Installing py3-lockfile (0.12.2-r3)
+(50/63) Installing py3-cachecontrol (0.12.6-r0)
+(51/63) Installing py3-colorama (0.4.4-r0)
+(52/63) Installing py3-contextlib2 (0.6.0-r0)
+(53/63) Installing py3-distlib (0.3.1-r1)
+(54/63) Installing py3-distro (1.5.0-r1)
+(55/63) Installing py3-webencodings (0.5.1-r3)
+(56/63) Installing py3-html5lib (1.1-r0)
+(57/63) Installing py3-pytoml (0.1.21-r0)
+(58/63) Installing py3-pep517 (0.9.1-r0)
+(59/63) Installing py3-progress (1.5-r0)
+(60/63) Installing py3-retrying (1.3.3-r0)
+(61/63) Installing py3-toml (0.10.2-r0)
+(62/63) Installing py3-pip (20.3.4-r0)
+(63/63) Installing python3-dev (3.8.10-r0)
+Executing busybox-1.32.1-r6.trigger
+OK: 349 MiB in 99 packages
+Removing intermediate container 6c0745c1f82c
+ ---> f915fbdb6f24
+Step 4/9 : ENV LIBRARY_PATH=/lib:/usr/lib
+ ---> Running in e771226f484b
+Removing intermediate container e771226f484b
+ ---> 0f1c76d40d76
+Step 5/9 : WORKDIR /usr/src/app
+ ---> Running in 93f5333248e2
+Removing intermediate container 93f5333248e2
+ ---> 4b4675c5a103
+Step 6/9 : COPY . .
+ ---> abebc17997e1
+Step 7/9 : RUN pip install --upgrade pip
+ ---> Running in fbb6548654aa
+Requirement already satisfied: pip in /usr/local/lib/python3.9/site-packages (21.1.2)
+[91mWARNING: Running pip as root will break packages and permissions. You should install packages reliably by using venv: https://pip.pypa.io/warnings/venv
+[0mRemoving intermediate container fbb6548654aa
+ ---> 4410199f8b95
+Step 8/9 : RUN pip install --no-cache-dir -r requirements.txt
+unexpected EOF
+Service 'pyweb' failed to build : Build failed
+Pushing mariadb (192.168.201.120:5000/appdb:latest)...
+The push refers to repository [192.168.201.120:5000/appdb]
+errors:
+manifest blob unknown: blob unknown to registry
+manifest blob unknown: blob unknown to registry
+manifest blob unknown: blob unknown to registry
+manifest blob unknown: blob unknown to registry
+manifest blob unknown: blob unknown to registry
+manifest blob unknown: blob unknown to registry
+manifest blob unknown: blob unknown to registry
+manifest blob unknown: blob unknown to registry
+
+Ignoring unsupported options: build, restart
+
+this node is not a swarm manager. Use "docker swarm init" or "docker swarm join" to connect this node to swarm and try again
+Build step 'Execute shell' marked build as failure
+Finished: FAILURE

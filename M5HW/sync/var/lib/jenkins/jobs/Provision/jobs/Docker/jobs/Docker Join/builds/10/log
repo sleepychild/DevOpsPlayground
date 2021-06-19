@@ -1,0 +1,32 @@
+Started by upstream project "[8mha:////4PJMlftvUJjlGjco91p1oUr2EWfNm6Q1yZcHoXgEMpzgAAAArR+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzZEgZd/az8JP2AovyyzOLM/DwwzyU/OTu1CImpamQQHO4Y5KsPAFc9F2PiAAAA[0mProvision/Docker/Docker SWARM" build number [8mha:////4DvFahYD3lZBpfL7nx6dT0qSdETxzxZy7v13q8ygXv7aAAAArR+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLQIwSBj39rPwk/YCi/LLM4sz8PDDPJT85O7UIialqZBAc7hjkq28OABOBjY3jAAAA[0m7
+originally caused by:
+ Started by upstream project "[8mha:////4MrLxhtVOhB3aXJoCdZ+nTOrRWKsCGrrq+m5Bpla9gwvAAAArx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAz5EgZ9/az8JP2AovyyzOLM/DwwzyU/OTu1CImpamSQmVdckpiTow8AbidADOQAAAA=[0mProvision/Docker/Docker install" build number [8mha:////4K88uPpzY9S6dVetuk0QQUnHGlQeJRSEBTGVSXQ6G+c+AAAAsR+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAymEgZD/az8JP2AovyyzOLM/DwwzyU/OTu1CImpamSQmVdckpiTo29oBACib0L15gAAAA==[0m12
+ originally caused by:
+  Started by upstream project "[8mha:////4Iv3c4GXhR3o2yPL9+ZPBqxQc0KEmiCIh6f0+7SFBkMwAAAArR+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAyJEgYV/az8JP2AovyyzOLM/Dwwzys1Lzszr1jVyKA4J7EstVgfANNv+XTZAAAA[0mProvision/Jenkins slaves" build number [8mha:////4C077DbXjGhfJlhnFPjfu1iym76ZoIXvrEgDhlud1uHHAAAArR+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLQIwSBlX9rPwk/YCi/LLM4sz8PDDPKzUvOzOvWNXIoDgnsSy1WN8CAEXkuPfaAAAA[0m8
+  originally caused by:
+   Started by timer
+Running as SYSTEM
+Building on master in workspace /var/lib/jenkins/workspace/Provision/Docker/Docker Join
+[Docker Join] $ /bin/sh -xe /tmp/jenkins17921452565876438754.sh
++ ansible-playbook /sync/docker_join_playbook.yml
+
+PLAY [docker_swarm_join_worker] ************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [node-2]
+
+TASK [docker_swarm_join_worker : Load swarm_init_result] ***********************
+ok: [node-2]
+
+TASK [docker_swarm_join_worker : Show swarm init result] ***********************
+ok: [node-2] => {
+    "swarm_init_result.swarm_facts.JoinTokens.Worker": "SWMTKN-1-4wzgb32mu9m4i2fdk3715cziasfwjnercnv3rg54koei4kpb4c-1hvvncaq5p4h7g2wppjcix2rk"
+}
+
+TASK [docker_swarm_join_worker : Join swarm as Worker] *************************
+ok: [node-2]
+
+PLAY RECAP *********************************************************************
+node-2                     : ok=4    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+Finished: SUCCESS

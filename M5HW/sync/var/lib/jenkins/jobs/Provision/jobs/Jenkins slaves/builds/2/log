@@ -1,0 +1,25 @@
+Started by timer
+Running as SYSTEM
+Building on master in workspace /var/lib/jenkins/workspace/Provision/Jenkins slaves
+[Jenkins slaves] $ /bin/sh -xe /tmp/jenkins12070641358761590958.sh
++ ansible-playbook /sync/jenkins_slave_playbook.yml
+
+PLAY [jenkins_slave] ***********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [node-2]
+
+TASK [jenkins_slave : Install openjdk] *****************************************
+ok: [node-2]
+
+TASK [jenkins_slave : Prep jenkis user] ****************************************
+ok: [node-2]
+
+TASK [jenkins_slave : Set jenkins user as sudoer] ******************************
+ok: [node-2]
+
+PLAY RECAP *********************************************************************
+node-2                     : ok=4    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+Triggering a new build of [8mha:////4JIWEcHf5DJEMv+4DNXSeN+mkIi7MLCKMreoNxqkAqapAAAArx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzlEgZ9/az8JP2AovyyzOLM/DwwzyU/OTu1CImpamSQmVdckpiTow8AcGQHS+QAAAA=[0mProvision » Docker » Docker install
+Finished: SUCCESS

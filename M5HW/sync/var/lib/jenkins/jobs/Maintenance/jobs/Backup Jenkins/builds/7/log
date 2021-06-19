@@ -1,0 +1,18 @@
+Started by timer
+Running as SYSTEM
+Building on master in workspace /var/lib/jenkins/workspace/Maintenance/Backup Jenkins
+[Backup Jenkins] $ /bin/sh -xe /tmp/jenkins5922153915046107105.sh
++ sudo rsync /var/lib/jenkins/config.xml /sync/var/lib/jenkins/config.xml
+[Backup Jenkins] $ /bin/sh -xe /tmp/jenkins1869486393216869085.sh
++ sudo rsync /var/lib/jenkins/credentials.xml /sync/var/lib/jenkins/credentials.xml
+[Backup Jenkins] $ /bin/sh -xe /tmp/jenkins9423690189344888832.sh
++ sudo rsync -r /var/lib/jenkins/jobs /sync/var/lib/jenkins
+[Backup Jenkins] $ /bin/sh -xe /tmp/jenkins16063241565030626202.sh
++ sudo rsync -r /var/lib/jenkins/nodes /sync/var/lib/jenkins
+[Backup Jenkins] $ /bin/sh -xe /tmp/jenkins11508819702286748153.sh
++ sudo rsync -r /var/lib/jenkins/plugins /sync/var/lib/jenkins
+[Backup Jenkins] $ /bin/sh -xe /tmp/jenkins13205473856182439511.sh
++ sudo rsync -r /var/lib/jenkins/secrets /sync/var/lib/jenkins
+[Backup Jenkins] $ /bin/sh -xe /tmp/jenkins13462566732473736171.sh
++ sudo rsync -r /var/lib/jenkins/users /sync/var/lib/jenkins
+Finished: SUCCESS

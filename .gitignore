@@ -8,6 +8,8 @@ exercises/
 python_local
 token
 state
+sync_result.out
+SwarmInit.json
 
 # PYTHON IGNORE
 
@@ -27,11 +29,10 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
+plugins/
 lib64/
 parts/
 sdist/
-var/
 wheels/
 pip-wheel-metadata/
 share/python-wheels/

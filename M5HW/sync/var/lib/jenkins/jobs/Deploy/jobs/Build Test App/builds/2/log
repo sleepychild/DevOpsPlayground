@@ -1,0 +1,27 @@
+Started by user [8mha:////4H7l/wRTNUqClynMAv8n8cUT2TN3RAdVly0ThLb4zz9JAAAAlx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzeEgZu/dLi1CL9xJTczDwACG0V4sAAAAA=[0mMario Kukucov
+Running as SYSTEM
+Building remotely on [8mha:////4MyCSz62rCYUJJ6n3DIvJraLDC4yccoQ2qnCvm9ORS2oAAAAmx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAy2EgYB/eT83ILSktQi/TygO3WNAAHkn4LFAAAA[0mnode-2 in workspace /home/vagrant/workspace/Deploy/Build Test App
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir /home/vagrant/workspace/Deploy/Build Test App/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/sleepychild/DevOpsPlaygroundTestApp.git # timeout=10
+Fetching upstream changes from https://github.com/sleepychild/DevOpsPlaygroundTestApp.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.25.1'
+ > git fetch --tags --force --progress -- https://github.com/sleepychild/DevOpsPlaygroundTestApp.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision 77375b99f2f92fe62edb84814fd9f23af98bdf1f (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 77375b99f2f92fe62edb84814fd9f23af98bdf1f # timeout=10
+Commit message: "Update pyweb.py"
+ > git rev-list --no-walk df3df2b8f2ac3818198a187d14539fdc1d86aa9e # timeout=10
+[Build Test App] $ /bin/sh -xe /tmp/jenkins2329427276335939747.sh
++ ./deploy.sh
+./deploy.sh: line 3: docker-compose: command not found
+./deploy.sh: line 4: docker-compose: command not found
+Ignoring unsupported options: build, restart
+
+this node is not a swarm manager. Use "docker swarm init" or "docker swarm join" to connect this node to swarm and try again
+Build step 'Execute shell' marked build as failure
+Finished: FAILURE

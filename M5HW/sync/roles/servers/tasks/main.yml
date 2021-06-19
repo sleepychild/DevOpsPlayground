@@ -1,7 +1,3 @@
 - name: Install prerequisites
   import_tasks: prereq_ubuntu.yml
   when: ansible_os_family == 'Debian'
-
-- name: Install docker on ubuntu
-  import_tasks: docker_ubuntu.yml
-  when: ansible_os_family == 'Debian'

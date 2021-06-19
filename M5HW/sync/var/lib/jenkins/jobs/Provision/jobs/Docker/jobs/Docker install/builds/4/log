@@ -1,0 +1,25 @@
+Started by user [8mha:////4H7l/wRTNUqClynMAv8n8cUT2TN3RAdVly0ThLb4zz9JAAAAlx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzeEgZu/dLi1CL9xJTczDwACG0V4sAAAAA=[0mMario Kukucov
+Running as SYSTEM
+Building on master in workspace /var/lib/jenkins/workspace/Provision/Docker/Docker install
+[Docker install] $ /bin/sh -xe /tmp/jenkins14617019097829554509.sh
++ ansible-playbook /sync/docker_install_playbook.yml
+
+PLAY [docker_host] *************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [node-2]
+ok: [node-1]
+
+TASK [docker_host : Add Docker repo key] ***************************************
+ok: [node-2]
+ok: [node-1]
+
+TASK [docker_host : Add Docker Repo] *******************************************
+ok: [node-2]
+ok: [node-1]
+
+TASK [docker_host : Install docker-ce] *****************************************
+ok: [node-2]
+Build was aborted
+Aborted by [8mha:////4H7l/wRTNUqClynMAv8n8cUT2TN3RAdVly0ThLb4zz9JAAAAlx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzeEgZu/dLi1CL9xJTczDwACG0V4sAAAAA=[0mMario Kukucov
+Finished: ABORTED

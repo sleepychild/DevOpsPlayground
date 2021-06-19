@@ -1,0 +1,22 @@
+Started by an SCM change
+Running as SYSTEM
+Building remotely on [8mha:////4MyCSz62rCYUJJ6n3DIvJraLDC4yccoQ2qnCvm9ORS2oAAAAmx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAy2EgYB/eT83ILSktQi/TygO3WNAAHkn4LFAAAA[0mnode-2 in workspace /home/vagrant/workspace/Deploy/Build Test App
+The recommended git tool is: NONE
+No credentials specified
+Cloning the remote Git repository
+Cloning repository https://github.com/sleepychild/DevOpsPlaygroundTestApp.git
+ > git init /home/vagrant/workspace/Deploy/Build Test App # timeout=10
+Fetching upstream changes from https://github.com/sleepychild/DevOpsPlaygroundTestApp.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.25.1'
+ > git fetch --tags --force --progress -- https://github.com/sleepychild/DevOpsPlaygroundTestApp.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/sleepychild/DevOpsPlaygroundTestApp.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision df3df2b8f2ac3818198a187d14539fdc1d86aa9e (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f df3df2b8f2ac3818198a187d14539fdc1d86aa9e # timeout=10
+Commit message: "CODE"
+First time build. Skipping changelog.
+Finished: SUCCESS

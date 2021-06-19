@@ -27,6 +27,10 @@ Vagrant.configure("2") do |config|
   config.vm.define "node-1" do |node|
     node.vm.hostname = "node-1.lab"
 
+    node.vm.provider :virtualbox do |config_vbox|
+      config_vbox.customize ["modifyvm", :id, "--memory", "2048"]
+    end
+
     node.vm.network "private_network",
       name: "vboxnet0",
       ip: "10.1.1.2",
@@ -43,6 +47,11 @@ Vagrant.configure("2") do |config|
       host: 5000, 
       auto_correct: true
   
+    node.vm.network "forwarded_port",
+      guest: 8080, 
+      host: 8080, 
+      auto_correct: true
+
     node.vm.network "public_network",
       ip: "192.168.201.120",
       bridge: "enp0s31f6"

@@ -1,0 +1,51 @@
+Started by upstream project "[8mha:////4MrLxhtVOhB3aXJoCdZ+nTOrRWKsCGrrq+m5Bpla9gwvAAAArx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAz5EgZ9/az8JP2AovyyzOLM/DwwzyU/OTu1CImpamSQmVdckpiTow8AbidADOQAAAA=[0mProvision/Docker/Docker install" build number [8mha:////4ERtVnjpnu4otqm3IFoCMaNU6SoX9VpS/6E0d+YwrzUmAAAArx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLQIwSBgP9rPwk/YCi/LLM4sz8PDDPJT85O7UIialqZJCZV1ySmJOjbwEA4xYQDuUAAAA=[0m8
+originally caused by:
+ Started by upstream project "[8mha:////4Iv3c4GXhR3o2yPL9+ZPBqxQc0KEmiCIh6f0+7SFBkMwAAAArR+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAyJEgYV/az8JP2AovyyzOLM/Dwwzys1Lzszr1jVyKA4J7EstVgfANNv+XTZAAAA[0mProvision/Jenkins slaves" build number [8mha:////4PrFnx/Gr3TrbyZjFJ/N1aUxtMGdd/yY/y7B3NpUh6ZUAAAArR+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLQIwSBlX9rPwk/YCi/LLM4sz8PDDPKzUvOzOvWNXIoDgnsSy1WN8EAG6oDv7aAAAA[0m4
+ originally caused by:
+  Started by timer
+Running as SYSTEM
+Building on master in workspace /var/lib/jenkins/workspace/Provision/Docker/Docker SWARM
+[Docker SWARM] $ /bin/sh -xe /tmp/jenkins11211041899451838852.sh
++ ansible-playbook /sync/docker_swarm_playbook.yml
+
+PLAY [docker_swarm_init] *******************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [node-1]
+
+TASK [docker_swarm_init : Remove a swarm manager] ******************************
+changed: [node-1]
+
+TASK [docker_swarm_init : Init a new swarm with default parameters] ************
+changed: [node-1]
+
+TASK [docker_swarm_init : Show swarm init result] ******************************
+ok: [node-1] => {
+    "swarm_init_result": {
+        "actions": [
+            "New Swarm cluster created: k8tvgfpdqiba3edzjtejiovod"
+        ],
+        "changed": true,
+        "failed": false,
+        "result": "",
+        "swarm_facts": {
+            "JoinTokens": {
+                "Manager": "SWMTKN-1-2esucxctjfmrcj6gue3zt6pvrpkwc7t3l7koxhtcjh5k3g3wi2-7miyfsk3yk6mi0y26ezwbe6zq",
+                "Worker": "SWMTKN-1-2esucxctjfmrcj6gue3zt6pvrpkwc7t3l7koxhtcjh5k3g3wi2-1ulh1wi317df54y9pls7slfug"
+            },
+            "UnlockKey": null
+        }
+    }
+}
+
+TASK [docker_swarm_init : Save swarm init reuslt] ******************************
+changed: [node-1]
+
+TASK [docker_swarm_init : Docker Service Create Registry] **********************
+changed: [node-1]
+
+PLAY RECAP *********************************************************************
+node-1                     : ok=6    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+Triggering a new build of [8mha:////4Pvwj70pqRqijy0SNIxd/XTmclyKIm9w7tBpM/xcmAm2AAAArB+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAyFEgYd/az8JP2AovyyzOLM/DwwzyU/OTu1CImpamTglZ+Zpw8A/eFeSOEAAAA=[0mProvision » Docker » Docker Join
+Finished: SUCCESS

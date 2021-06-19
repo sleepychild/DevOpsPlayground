@@ -1,0 +1,9 @@
+Started by user [8mha:////4H7l/wRTNUqClynMAv8n8cUT2TN3RAdVly0ThLb4zz9JAAAAlx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzeEgZu/dLi1CL9xJTczDwACG0V4sAAAAA=[0mMario Kukucov
+Running as SYSTEM
+Building on master in workspace /var/lib/jenkins/workspace/Maintenance/Backup Jenkins
+[Backup Jenkins] $ /bin/sh -xe /tmp/jenkins16912750791026241311.sh
++ rsync /var/lib/jenkins/config.xml /sync/var/lib/jenkins/config.xml
+rsync: mkstemp "/sync/var/lib/jenkins/.config.xml.JL9UGs" failed: Permission denied (13)
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1207) [sender=3.1.3]
+Build step 'Execute shell' marked build as failure
+Finished: FAILURE

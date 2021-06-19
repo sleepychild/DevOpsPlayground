@@ -13,3 +13,8 @@
     state: join
     join_token: "{{ swarm_init_result.swarm_facts.JoinTokens.Worker }}"
     remote_addrs: [ '10.1.1.2:2377' ]
+
+- name: create remote context
+  shell: docker context create --docker host=tcp://10.1.1.2:2375 remote && docker context use remote > ~/.docker-is-remote
+  args:
+    creates: ~/.docker-is-remote

@@ -14,7 +14,7 @@ fi
 # debug = True
 # enable_task_debugger = True
 
-tee <<EOF ansible.cfg
+tee <<EOF /etc/ansible/ansible.cfg
 [defaults]
 interpreter_python = /usr/bin/env python3
 host_key_checking = False
@@ -23,8 +23,13 @@ EOF
 
 echo "Base Playbook"
 
-# This need to be two separate playbooks or they hang
+# Smaller playbooks hang less often
 ansible-playbook /sync/base_playbook.yml
 ansible-playbook /sync/servers_playbook.yml
-ansible-playbook /sync/docker_playbook.yml
-# ansible-playbook /sync/jenkins_playbook.yml
+
+ansible-playbook /sync/jenkins_slave_playbook.yml
+ansible-playbook /sync/jenkins_master_playbook.yml
+
+ansible-playbook /sync/docker_install_playbook.yml
+ansible-playbook /sync/docker_swarm_playbook.yml
+ansible-playbook /sync/docker_join_playbook.yml

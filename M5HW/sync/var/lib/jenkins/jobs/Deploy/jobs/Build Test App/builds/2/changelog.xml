@@ -1,0 +1,9 @@
+commit 77375b99f2f92fe62edb84814fd9f23af98bdf1f
+tree d94b7bfd3a4105f7c5ce509da9bc4e7b2f79c9f8
+parent df3df2b8f2ac3818198a187d14539fdc1d86aa9e
+author Mario Kukucov <sleepychild@abv.bg> 2021-06-19 02:56:48 +0300
+committer GitHub <noreply@github.com> 2021-06-19 02:56:48 +0300
+
+    Update pyweb.py
+
+:100644 100644 30814337dc0cac35b1efae2060612738fc9da275 aed6e419c8d7fcb79518ed078974e9f24d818117 M	web/pyweb.py
