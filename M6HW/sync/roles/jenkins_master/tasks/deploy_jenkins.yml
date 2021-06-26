@@ -1,0 +1,80 @@
+- name: Add an Apt signing key for jenkins repo
+  apt_key:
+    url: https://pkg.jenkins.io/debian-stable/jenkins.io.key
+    state: present
+  become: yes
+
+- name: Add Jenkins Repo
+  shell: echo "deb https://pkg.jenkins.io/debian-stable binary/" | sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null
+  args:
+    creates: /etc/apt/sources.list.d/jenkins.list
+
+- name: Install openjdk
+  apt:
+    name: openjdk-11-jdk
+    state: latest
+    install_recommends: yes
+    update_cache: yes
+  become: yes
+
+- name: Install jenkins
+  apt:
+    name: jenkins
+    state: latest
+    install_recommends: yes
+  become: yes
+
+- name: Stop jenkins
+  systemd:
+    name: jenkins
+    daemon-reload: yes
+    state: stopped
+  become: yes
+
+- name: Prep jenkis user
+  user:
+    name: jenkins
+    password: "$6$ZeC81LPp1JnSJFTX$Zgu32enarP/gzIBNaUCHcbcyHAx.CoCo/F0fSos32hUOMPzs0Q9vqSeMke5ahXU9X13A.hGO08eobxysoK57P1"
+    append: yes
+    groups: sudo
+    generate_ssh_key: yes
+    ssh_key_bits: 2048
+    ssh_key_file: .ssh/id_rsa
+    shell: /bin/bash
+  become: yes
+
+- name: Set jenkins user as sudoer
+  copy:
+    content: 'jenkins ALL=(ALL) NOPASSWD:ALL'
+    dest: /etc/sudoers.d/jenkins
+    owner: root
+    group: root
+    mode: 0440
+  become: yes
+
+- name: Copy jenkins
+  shell: rsync -r /sync/var/lib/jenkins /var/lib > /sync/sync_result.out
+  args:
+    creates: /sync/sync_result.out
+  become: yes
+
+- name: Set ownership jenkins
+  file:
+    path: /var/lib/jenkins
+    state: directory
+    recurse: yes
+    owner: jenkins
+    group: jenkins
+  become: yes
+
+- name: Start jenkins
+  systemd:
+    name: jenkins
+    state: started
+  become: yes
+
+- name: Copy jenkins initial admin password
+  shell: cp /var/lib/jenkins/secrets/initialAdminPassword /sync/initialAdminPassword
+  args:
+    creates: /sync/initialAdminPassword
+  become: yes

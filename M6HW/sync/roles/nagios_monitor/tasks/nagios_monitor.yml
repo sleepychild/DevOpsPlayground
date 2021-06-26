@@ -1,0 +1,112 @@
+- name: Install apache2-utils
+  apt:
+    name: apache2-utils
+    state: latest
+    install_recommends: yes
+    update_cache: yes
+  become: yes
+
+- name: Install nagios
+  apt:
+    name: nagios4
+    state: latest
+    install_recommends: yes
+  become: yes
+
+- name: Install nagios-common
+  apt:
+    name: nagios4-common
+    state: latest
+    install_recommends: yes
+  become: yes
+
+- name: Install nagios-core
+  apt:
+    name: nagios4-core
+    state: latest
+    install_recommends: yes
+  become: yes
+
+- name: Enable apache2 auth_digest
+  shell: a2enmod auth_digest
+  become: yes
+
+- name: Enable apache2 authz_groupfile
+  shell: a2enmod authz_groupfile
+  become: yes
+
+- name: Set nagios secure
+  replace:
+    path: /etc/nagios4/apache2.conf
+    after: '<DirectoryMatch'
+    before: '<Files "cmd.cgi">'
+    regexp: 'Require ip'
+    replace: '#Require ip'
+  become: yes
+
+- name: Set nagios secure
+  replace:
+    path: /etc/nagios4/apache2.conf
+    after: '<Files "cmd.cgi">'
+    before: '</Files>'
+    regexp: '#Require'
+    replace: 'Require'
+  become: yes
+
+- name: Set nagios secure
+  replace:
+    path: /etc/nagios4/apache2.conf
+    after: '<Files "cmd.cgi">'
+    before: '</Files>'
+    regexp: 'Require all'
+    replace: '#Require all'
+  become: yes
+
+- name: Set nagios secure
+  replace:
+    path: /etc/nagios4/apache2.conf
+    after: '<DirectoryMatch'
+    before: '</DirectoryMatch>'
+    regexp: '<Files "cmd.cgi">'
+    replace: ''
+  become: yes
+
+- name: Set nagios secure
+  replace:
+    path: /etc/nagios4/apache2.conf
+    after: '<DirectoryMatch'
+    before: '</DirectoryMatch>'
+    regexp: '</Files>'
+    replace: ''
+  become: yes
+
+- name: Set nagios secure
+  replace:
+    path: /etc/nagios4/cgi.cfg
+    regexp: use_authentication=0
+    replace: use_authentication=1
+  become: yes
+
+- name: Set nagios secure
+  lineinfile:
+    path: /etc/nagios4/htdigest.users
+    line: nagiosadmin:Nagios4:c285c1764f4b1054d4795383d1e33b50
+    owner: nagios
+    group: www-data
+    mode: '0640'
+    create: yes
+  become: yes
+
+- name: Restart apache2 Daemon
+  systemd:
+    name: apache2
+    daemon-reload: yes
+    state: restarted
+  become: yes
+
+- name: Restart nagios4 Daemon
+  systemd:
+    name: nagios4
+    daemon-reload: yes
+    state: restarted
+  become: yes

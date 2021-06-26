@@ -1,0 +1,4 @@
+---
+- hosts: nagios_monitor
+  roles:
+    - nagios_monitor

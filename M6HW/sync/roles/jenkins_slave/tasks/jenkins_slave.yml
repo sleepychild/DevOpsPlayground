@@ -1,0 +1,28 @@
+- name: Install openjdk
+  apt:
+    name: openjdk-11-jdk
+    state: latest
+    install_recommends: yes
+    update_cache: yes
+  become: yes
+
+- name: Prep jenkis user
+  user:
+    name: jenkins
+    password: "$6$ZeC81LPp1JnSJFTX$Zgu32enarP/gzIBNaUCHcbcyHAx.CoCo/F0fSos32hUOMPzs0Q9vqSeMke5ahXU9X13A.hGO08eobxysoK57P1"
+    append: yes
+    groups: sudo
+    generate_ssh_key: yes
+    ssh_key_bits: 2048
+    ssh_key_file: .ssh/id_rsa
+    shell: /bin/bash
+  become: yes
+
+- name: Set jenkins user as sudoer
+  copy:
+    content: 'jenkins ALL=(ALL) NOPASSWD:ALL'
+    dest: /etc/sudoers.d/jenkins
+    owner: root
+    group: root
+    mode: 0440
+  become: yes

@@ -1,0 +1,4 @@
+---
+- hosts: docker_swarm_worker
+  roles:
+    - docker_swarm_worker
