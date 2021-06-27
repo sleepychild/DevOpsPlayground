@@ -58,6 +58,13 @@
     append: yes
   become: yes
 
+- name: Add nrpe user to docker group
+  user:
+    name: nrpe
+    groups: docker
+    append: yes
+  become: yes
+
 - name: Copy docker daemon config
   copy:
     src: /sync/etc/docker/daemon.json

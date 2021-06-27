@@ -11,6 +11,11 @@ state
 sync_result.out
 SwarmInit.json
 initialAdminPassword
+nagios_sync_result.out
+remote.dockercontext
+
+M5HW/sync/var/lib/jenkins/plugins/*
+M6HW/sync/var/lib/jenkins/plugins/*
 
 # PYTHON IGNORE
 
@@ -30,7 +35,6 @@ dist/
 downloads/
 eggs/
 .eggs/
-plugins/
 lib64/
 parts/
 sdist/

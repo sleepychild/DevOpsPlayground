@@ -16,3 +16,17 @@
     install_recommends: yes
     update_cache: yes
   become: yes
+
+- name: Stop multipathd.socket
+  systemd:
+    name: multipathd.socket
+    state: stopped
+    enabled: no
+  become: yes
+
+- name: Stop multipathd
+  systemd:
+    name: multipathd
+    state: stopped
+    enabled: no
+  become: yes

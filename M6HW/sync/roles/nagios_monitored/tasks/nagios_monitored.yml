@@ -1,0 +1,71 @@
+- name: Install nrpe
+  apt:
+    name: nagios-nrpe-server
+    state: latest
+    install_recommends: yes
+  become: yes
+
+# /etc/nagios/nrpe.cfg
+# from
+# # allowed_hosts=
+# # dont_blame_nrpe=0
+# # allow_bash_command_substitution=0
+# to
+# allowed_hosts=10.1.1.2
+# dont_blame_nrpe=1
+# allow_bash_command_substitution=1
+
+- name: nrpe.cfg allowed_hosts
+  replace:
+    path: /etc/nagios/nrpe.cfg
+    regexp: 'allowed_hosts=127.0.0.1,::1'
+    replace: 'allowed_hosts=10.1.1.2'
+  become: yes
+
+- name: nrpe.cfg dont_blame_nrpe
+  replace:
+    path: /etc/nagios/nrpe.cfg
+    regexp: 'dont_blame_nrpe=0'
+    replace: 'dont_blame_nrpe=1'
+  become: yes
+
+- name: nrpe.cfg allow_bash_command_substitution
+  replace:
+    path: /etc/nagios/nrpe.cfg
+    regexp: 'allow_bash_command_substitution=0'
+    replace: 'allow_bash_command_substitution=1'
+  become: yes
+
+- name: Copy custom plugins
+  copy:
+    src: /sync/usr/lib/nagios/plugins/check_docker_container.sh
+    dest: /usr/lib/nagios/plugins/check_docker_container.sh
+    owner: root
+    group: root
+    mode: 0755
+  become: yes
+
+- name: Copy custom cmd config
+  copy:
+    src: /sync/etc/nagios/nrpe.d/check_docker_container.cfg
+    dest: /etc/nagios/nrpe.d/check_docker_container.cfg
+    owner: root
+    group: root
+    mode: 0755
+  become: yes
+
+- name: Set nrpe user as sudoer
+  copy:
+    content: 'nrpe ALL=(ALL) NOPASSWD:ALL'
+    dest: /etc/sudoers.d/nrpe
+    owner: root
+    group: root
+    mode: 0440
+  become: yes
+
+- name: Restart nrpe server
+  systemd:
+    name: nagios-nrpe-server
+    daemon-reload: yes
+    state: restarted
+  become: yes

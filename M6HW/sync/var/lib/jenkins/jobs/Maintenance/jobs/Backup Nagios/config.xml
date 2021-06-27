@@ -1,7 +1,7 @@
 <?xml version='1.1' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description>Run ansible docker playbook</description>
+  <description>Backup Nagios4 infra</description>
   <keepDependencies>false</keepDependencies>
   <properties/>
   <scm class="hudson.scm.NullSCM"/>
@@ -11,25 +11,14 @@
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers>
-    <jenkins.triggers.ReverseBuildTrigger>
-      <spec></spec>
-      <upstreamProjects>Docker SWARM</upstreamProjects>
-      <threshold>
-        <name>SUCCESS</name>
-        <ordinal>0</ordinal>
-        <color>BLUE</color>
-        <completeBuild>true</completeBuild>
-      </threshold>
-    </jenkins.triggers.ReverseBuildTrigger>
+    <hudson.triggers.TimerTrigger>
+      <spec>H/5 * * * *</spec>
+    </hudson.triggers.TimerTrigger>
   </triggers>
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>ansible-playbook /sync/docker_swarm_worker_playbook.yml</command>
-      <configuredLocalRules/>
-    </hudson.tasks.Shell>
-    <hudson.tasks.Shell>
-      <command>ansible-playbook /sync/docker_remote_playbook.yml</command>
+      <command>sudo rsync -r /etc/nagios4/conf.d/infra /sync/etc/nagios4/conf.d/</command>
       <configuredLocalRules/>
     </hudson.tasks.Shell>
   </builders>

@@ -36,7 +36,7 @@
       become: yes
 
 - name: Setup node-3
-  hosts: node-2
+  hosts: node-3
   tasks:
     - name: Insert master entry to etc hosts
       lineinfile:
@@ -45,7 +45,7 @@
       become: yes
 
 - name: Setup node-3
-  hosts: node-2
+  hosts: node-3
   tasks:
     - name: Insert master entry to etc hosts
       lineinfile:

@@ -13,8 +13,3 @@
     state: join
     join_token: "{{ swarm_init_result.swarm_facts.JoinTokens.Worker }}"
     remote_addrs: [ '10.1.1.2:2377' ]
-
-- name: create remote context
-  shell: |
-    docker context import /sync/remote
-    docker context use remote

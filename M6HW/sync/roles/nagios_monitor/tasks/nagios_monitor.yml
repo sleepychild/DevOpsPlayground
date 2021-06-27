@@ -27,6 +27,13 @@
     install_recommends: yes
   become: yes
 
+- name: Install nagios-nrpe-plugin
+  apt:
+    name: nagios-nrpe-plugin
+    state: latest
+    install_recommends: yes
+  become: yes
+
 - name: Enable apache2 auth_digest
   shell: a2enmod auth_digest
   become: yes
@@ -95,6 +102,39 @@
     group: www-data
     mode: '0640'
     create: yes
+  become: yes
+
+- name: Copy nagios
+  shell: rsync -r /sync/etc/nagios4/conf.d/infra /etc/nagios4/conf.d > /sync/nagios_sync_result.out
+  args:
+    creates: /sync/nagios_sync_result.out
+  become: yes
+
+- name: Set ownership nagios
+  file:
+    path: /etc/nagios4/conf.d/infra
+    state: directory
+    recurse: yes
+    owner: root
+    group: root
+  become: yes
+
+- name: Set ownership resource.cfg
+  file:
+    path: /etc/nagios4/resource.cfg
+    owner: nagios
+    group: nagios
+    mode: "0755"
+  become: yes
+
+- name: Set ownership /var/lib/nagios4
+  file:
+    path: /var/lib/nagios4
+    owner: nagios
+    group: www-data
+    state: directory
+    recurse: yes
+    mode: "0777"
   become: yes
 
 - name: Restart apache2 Daemon
