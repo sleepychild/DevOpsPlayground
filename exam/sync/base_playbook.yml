@@ -1,0 +1,19 @@
+---
+- name: Setup /etc/hosts
+  hosts: all
+  tasks:
+    - name: Insert anvm to etc hosts
+      lineinfile:
+        path: /etc/hosts
+        line: 192.168.120.100 anvm.dob.exam anvm
+      become: yes
+    - name: Insert jenkins to etc hosts
+      lineinfile:
+        path: /etc/hosts
+        line: 192.168.120.101 jvm.dob.exam jenkins
+      become: yes
+    - name: Insert docker to etc hosts
+      lineinfile:
+        path: /etc/hosts
+        line: 192.168.120.102 dvm.dob.exam docker
+      become: yes
