@@ -1,0 +1,4 @@
+---
+- hosts: docker_remote
+  roles:
+    - docker_remote

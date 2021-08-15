@@ -1,0 +1,111 @@
+- name: Add Docker repo key
+  shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+  args:
+    creates: /usr/share/keyrings/docker-archive-keyring.gpg
+    warn: false
+
+- name: Add Docker Repo
+  shell: echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+  args:
+    creates: /etc/apt/sources.list.d/docker.list
+
+- name: Install docker-ce
+  apt:
+    name: docker-ce
+    state: latest
+    install_recommends: yes
+    update_cache: yes
+  become: yes
+
+- name: Install docker-ce-cli
+  apt:
+    name: docker-ce-cli
+    state: latest
+    install_recommends: yes
+  become: yes
+
+- name: Install containerd.io
+  apt:
+    name: containerd.io
+    state: latest
+    install_recommends: yes
+  become: yes
+
+- name: Stop docker
+  systemd:
+    name: docker
+    daemon-reload: yes
+    state: stopped
+  become: yes
+
+- name: Install Docker SDK for Python
+  pip:
+    name: docker
+    state: latest
+    executable: pip3
+
+- name: Add vagrant user to docker group
+  user:
+    name: vagrant
+    groups: docker
+    append: yes
+  become: yes
+
+- name: Add jenkins user to docker group
+  user:
+    name: jenkins
+    groups: docker
+    append: yes
+  become: yes
+
+- name: Add nrpe user to docker group
+  user:
+    name: nrpe
+    groups: docker
+    append: yes
+  become: yes
+
+- name: Copy docker daemon config
+  copy:
+    src: /sync/etc/docker/daemon.json
+    dest: /etc/docker/daemon.json
+  become: yes
+
+- name: Create a directory if it does not exist
+  file:
+    path: /etc/systemd/system/docker.service.d/
+    state: directory
+  become: yes
+
+- name: Copy docker daemon unit override
+  copy:
+    src: /sync/etc/systemd/system/docker.service.d/override.conf
+    dest: /etc/systemd/system/docker.service.d/override.conf
+  become: yes
+
+- name: Download Docker Compose
+  shell: curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  args:
+    creates: /usr/local/bin/docker-compose
+    warn: false
+  become: yes
+
+- name: Make docker compose executable
+  file:
+    path: /usr/local/bin/docker-compose
+    mode: u+x,g+x,o+x
+  become: yes
+
+# - name: Restart Docker Daemon
+#   systemd:
+#     name: docker
+#     daemon-reload: yes
+#     state: restarted
+#   become: yes
+
+- name: Start Docker
+  systemd:
+    name: docker
+    daemon-reload: yes
+    state: started
+  become: yes

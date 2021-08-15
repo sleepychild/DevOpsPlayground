@@ -1,0 +1,4 @@
+- name: create remote context
+  shell: |
+    docker context import remote /sync/remote.dockercontext
+    docker context use remote

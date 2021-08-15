@@ -14,6 +14,8 @@ initialAdminPassword
 nagios_sync_result.out
 remote.dockercontext
 
+virtualbox.box
+
 M5HW/sync/var/lib/jenkins/plugins/*
 M6HW/sync/var/lib/jenkins/plugins/*
 
