@@ -1,4 +1,0 @@
----
-- hosts: docker_swarm_init
-  roles:
-    - docker_swarm_init

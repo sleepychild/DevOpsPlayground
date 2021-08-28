@@ -1,3 +1,0 @@
-- name: Set Docker Context Remote
-  import_tasks: docker_remote.yml
-  when: ansible_os_family == 'Debian'

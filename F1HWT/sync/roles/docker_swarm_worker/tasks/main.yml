@@ -1,3 +1,0 @@
-- name: Docker Swarm Join Worker
-  import_tasks: docker_swarm_join_worker.yml
-  when: ansible_os_family == 'Debian'

@@ -1,3 +1,0 @@
-# ansible_become: true
-ansible_user: vagrant
-ansible_password: vagrant
