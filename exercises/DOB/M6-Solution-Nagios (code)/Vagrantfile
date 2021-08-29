@@ -1,0 +1,34 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+  config.ssh.insert_key = false
+
+  config.vm.define "nagios" do |nagios|
+    nagios.vm.box="shekeriev/centos-8-minimal"
+    nagios.vm.hostname = "nagios.dob.lab"
+    nagios.vm.network "private_network", ip: "192.168.99.100"
+    nagios.vm.network "forwarded_port", guest: 80, host: 8081, auto_correct: true
+    nagios.vm.synced_folder "vagrant/nagios/", "/vagrant"
+    nagios.vm.provision "shell", path: "vagrant/nagios.sh"
+  end
+  
+  config.vm.define "docker" do |docker|
+    docker.vm.box="shekeriev/centos-8-minimal"
+    docker.vm.hostname = "docker.dob.lab"
+    docker.vm.network "private_network", ip: "192.168.99.101"
+    docker.vm.network "forwarded_port", guest: 80, host: 8082, auto_correct: true
+    docker.vm.synced_folder "vagrant/docker/", "/vagrant"
+    docker.vm.provision "ansible_local" do |ansible|
+      ansible.become = true
+      ansible.install_mode = :default
+      ansible.playbook = "playbook-docker.yml"
+      ansible.galaxy_role_file = "requirements-docker.yml"
+      ansible.galaxy_roles_path = "/etc/ansible/roles"
+      ansible.galaxy_command = "sudo ansible-galaxy install --role-file=%{role_file} --roles-path=%{roles_path} --force"
+    end
+    docker.vm.provision "shell", path: "vagrant/docker.sh"
+  end
+
+end

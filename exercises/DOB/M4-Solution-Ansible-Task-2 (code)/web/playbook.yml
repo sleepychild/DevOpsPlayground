@@ -1,0 +1,35 @@
+---
+- hosts: all
+
+  tasks:
+    - name: Add dob-web host
+      lineinfile:
+        path: /etc/hosts
+        line: '192.168.99.100 dob-web.dob.lab dob-web'
+    - name: Add dob-db host
+      lineinfile:
+        path: /etc/hosts
+        line: '192.168.99.101 dob-db.dob.lab dob-db'
+    - name: Install Apache web server and PHP
+      dnf:
+        name:
+          - httpd
+          - php
+          - php-mysqlnd
+        state: present
+    - name: Disable SELinux
+      selinux:
+        state: disabled 
+    - name: Copy site files
+      copy: src=site/ dest=/var/www/html/
+    - name: Open HTTP port in the firewall
+      firewalld:
+        service: http
+        permanent: true
+        state: enabled
+        immediate: true
+    - name: Start Apache web server
+      service:
+        name: httpd
+        state: started
+        enabled: yes

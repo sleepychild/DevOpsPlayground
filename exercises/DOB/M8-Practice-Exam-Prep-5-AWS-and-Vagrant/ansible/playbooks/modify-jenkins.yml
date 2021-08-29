@@ -1,0 +1,8 @@
+---
+- hosts: jenkins
+  become: true
+  roles:
+    - jenkins-prepare-scripts
+    - jenkins-add-credentials
+    - jenkins-add-slave-node
+    - jenkins-create-job

@@ -1,0 +1,38 @@
+require 'vagrant-aws'
+
+class Hash
+  def slice(*keep_keys)
+    h = {}
+    keep_keys.each { |key| h[key] = fetch(key) if has_key?(key) }
+    h
+  end unless Hash.method_defined?(:slice)
+  def except(*less_keys)
+    slice(*keys - less_keys)
+  end unless Hash.method_defined?(:except)
+end
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "aws-box"
+
+  config.vm.synced_folder '.', '/vagrant', disabled: true
+  
+  config.vm.provider 'aws' do |aws, override|
+    aws.access_key_id = "<ACCESS-KEY>"
+    aws.secret_access_key = "<SECRET-ACCESS-KEY>"
+
+    aws.keypair_name = "demo-key"
+
+    aws.region = "eu-central-1"
+    aws.ami = "ami-06ec8443c2a35b0ba"
+    aws.instance_type = "t2.micro"
+
+    override.ssh.username = "ec2-user"
+    override.ssh.private_key_path = "<PATH-TO-KEY>"
+
+    aws.tags = {
+      'Name' => 'AWS Red Hat test instance',
+      'Description' => 'AWS Red Hat test instance created with Vagrant'
+    }
+  end
+
+end

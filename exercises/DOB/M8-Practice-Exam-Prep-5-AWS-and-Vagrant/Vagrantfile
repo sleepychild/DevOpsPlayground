@@ -1,0 +1,139 @@
+require "vagrant-aws"
+
+class Hash
+  def slice(*keep_keys)
+    h = {}
+    keep_keys.each { |key| h[key] = fetch(key) if has_key?(key) }
+    h
+  end unless Hash.method_defined?(:slice)
+  def except(*less_keys)
+    slice(*keys - less_keys)
+  end unless Hash.method_defined?(:except)
+end
+
+Vagrant.configure("2") do |config|
+  
+  config.vm.box = "aws-box"
+
+  config.vm.define "jenkins" do |jenkins_config|
+  
+    jenkins_config.vm.provider "aws" do |jenkins, override|
+      jenkins.access_key_id = "<PUT YOUR ACCESS KEY HERE>"
+      jenkins.secret_access_key = "<PUT YOUR SECRET ACCESS KEY HERE>"
+  
+      jenkins.keypair_name = "aws-key-pair"
+  
+      jenkins.region = "eu-central-1"
+      jenkins.ami = "ami-06ec8443c2a35b0ba"
+      jenkins.instance_type = "t2.micro"
+      jenkins.availability_zone = "eu-central-1c"
+      jenkins.subnet_id = "subnet-0e7434755aab0008d"
+      jenkins.private_ip_address = "172.31.37.75"
+      
+      jenkins.user_data = File.read("provision-jenkins.sh")
+  
+      jenkins.tags = {
+        'Name' => 'Jenkins on Red Hat',
+        'Description' => 'Jenkins on Red Hat, created with Vagrant'
+      }
+
+      override.ssh.username = "ec2-user"
+      override.ssh.private_key_path = "ansible/aws-key-pair.pem"
+  
+      override.nfs.functional = false
+      override.vm.synced_folder ".", "/vagrant", disabled: true
+    end
+  end
+
+  config.vm.define "nagios" do |nagios_config|
+  
+    nagios_config.vm.provider "aws" do |nagios, override|
+      nagios.access_key_id = "<PUT YOUR ACCESS KEY HERE>"
+      nagios.secret_access_key = "<PUT YOUR SECRET ACCESS KEY HERE>"
+  
+      nagios.keypair_name = "aws-key-pair"
+  
+      nagios.region = "eu-central-1"
+      nagios.ami = "ami-06ec8443c2a35b0ba"
+      nagios.instance_type = "t2.micro"
+      nagios.availability_zone = "eu-central-1c"
+      nagios.subnet_id = "subnet-0e7434755aab0008d"
+      nagios.private_ip_address = "172.31.37.76"
+
+      nagios.user_data = File.read("provision-nagios.sh")
+
+      nagios.tags = {
+        'Name' => 'Nagios on Red Hat',
+        'Description' => 'Nagios on Red Hat, created with Vagrant'
+      }
+
+      override.ssh.username = "ec2-user"
+      override.ssh.private_key_path = "ansible/aws-key-pair.pem"
+  
+      override.nfs.functional = false
+      override.vm.synced_folder ".", "/vagrant", disabled: true
+    end
+  end
+
+
+  config.vm.define "docker" do |docker_config|
+  
+    docker_config.vm.provider "aws" do |docker, override|
+      docker.access_key_id = "<PUT YOUR ACCESS KEY HERE>"
+      docker.secret_access_key = "<PUT YOUR SECRET ACCESS KEY HERE>"
+  
+      docker.keypair_name = "aws-key-pair"
+  
+      docker.region = "eu-central-1"
+      docker.ami = "ami-06ec8443c2a35b0ba"
+      docker.instance_type = "t2.micro"
+      docker.availability_zone = "eu-central-1c"
+      docker.subnet_id = "subnet-0e7434755aab0008d"
+      docker.private_ip_address = "172.31.37.77"
+      
+      docker.user_data = File.read("provision-docker.sh")
+  
+      docker.tags = {
+        'Name' => 'Docker on Red Hat',
+        'Description' => 'Docker on Red Hat, created with Vagrant'
+      }
+
+      override.ssh.username = "ec2-user"
+      override.ssh.private_key_path = "ansible/aws-key-pair.pem"
+  
+      override.nfs.functional = false
+      override.vm.synced_folder ".", "/vagrant", disabled: true
+    end
+  end
+
+  config.vm.define "ansible" do |ansible_config|
+  
+    ansible_config.vm.provider "aws" do |ansible, override|
+      ansible.access_key_id = "<PUT YOUR ACCESS KEY HERE>"
+      ansible.secret_access_key = "<PUT YOUR SECRET ACCESS KEY HERE>"
+  
+      ansible.keypair_name = "aws-key-pair"
+  
+      ansible.region = "eu-central-1"
+      ansible.ami = "ami-06ec8443c2a35b0ba"
+      ansible.instance_type = "t2.micro"
+      ansible.availability_zone = "eu-central-1c"
+      ansible.subnet_id = "subnet-0e7434755aab0008d"
+      ansible.private_ip_address = "172.31.37.78"
+      
+      ansible.user_data = File.read("provision-ansible.sh")
+  
+      ansible.tags = {
+        'Name' => 'Ansible on Red Hat',
+        'Description' => 'Ansible on Red Hat, created with Vagrant'
+      }
+
+      override.ssh.username = "ec2-user"
+      override.ssh.private_key_path = "ansible/aws-key-pair.pem"
+  
+      override.nfs.functional = false
+      override.vm.synced_folder ".", "/vagrant", disabled: true
+    end
+  end
+
+end 

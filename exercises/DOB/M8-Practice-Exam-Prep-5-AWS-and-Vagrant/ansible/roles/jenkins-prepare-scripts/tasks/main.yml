@@ -1,0 +1,17 @@
+---
+  - name: Copy BASH scripts for Jenkins CLI interaction
+    copy:
+      src={{ item }}
+      dest=/vagrant/
+    with_fileglob:
+      - /vagrant/jenkins/*.sh
+  - name: Turn on execute permission for copied BASH scripts
+    file:
+      path=/vagrant
+      mode="a+x"
+      state=directory
+      recurse=yes
+  - name: Copy the credentials file
+    copy:
+      src=/vagrant/jenkins/credentials.xml
+      dest=/vagrant/

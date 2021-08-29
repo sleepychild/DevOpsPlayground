@@ -1,0 +1,7 @@
+---
+- hosts: nagios
+  become: true
+  roles:
+    - disable-selinux
+    - add-hosts
+    - nagios

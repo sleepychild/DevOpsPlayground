@@ -1,0 +1,25 @@
+---
+- hosts: all
+
+  vars_files:
+    - vars/main.yml
+
+  roles:
+    - geerlingguy.mysql
+
+  tasks:
+    - name: Add dob-web host
+      lineinfile:
+        path: /etc/hosts
+        line: '192.168.99.100 dob-web.dob.lab dob-web'
+    - name: Add dob-db host
+      lineinfile:
+        path: /etc/hosts
+        line: '192.168.99.101 dob-db.dob.lab dob-db'
+    - name: Import DB 
+      shell: mysql -u root --password=root < db_setup.sql
+    - name: Allow all access to tcp port 3306
+      ufw:
+        rule: allow
+        port: 3306
+        proto: tcp

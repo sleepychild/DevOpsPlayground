@@ -1,0 +1,17 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+  config.ssh.insert_key = false
+
+  config.vm.define "docker" do |docker|
+    docker.vm.box="shekeriev/ubuntu-20-04-server"
+    docker.vm.hostname = "docker.dob.lab"
+    docker.vm.network "private_network", ip: "192.168.89.100"
+    docker.vm.synced_folder "vagrant/", "/vagrant"
+    docker.vm.provision "shell", path: "docker.sh"
+  end
+
+end
+ 

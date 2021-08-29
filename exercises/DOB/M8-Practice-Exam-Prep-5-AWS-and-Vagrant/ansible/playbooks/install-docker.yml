@@ -1,0 +1,11 @@
+---
+- hosts: docker
+  become: true
+  roles:
+    - disable-selinux
+    - add-hosts
+    - git
+    - geerlingguy.java
+    - geerlingguy.docker
+    - nrpe
+    - dob-network

@@ -1,0 +1,7 @@
+{
+    "cluster": "demo-cluster-1",
+    "serviceName": "demo-service-2",
+    "taskDefinition": "demo-task-2",
+    "launchType": "EC2",
+    "desiredCount": 1
+}

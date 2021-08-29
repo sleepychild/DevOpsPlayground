@@ -1,11 +1,7 @@
 # IGNORE
 
 # big files not needed in git 
-boxes/
-OVA/
-iso/
-exercises/
-python_local
+exercises/*/*.zip
 token
 state
 sync_result.out
@@ -16,8 +12,8 @@ remote.dockercontext
 
 virtualbox.box
 
-M5HW/sync/var/lib/jenkins/plugins/*
-M6HW/sync/var/lib/jenkins/plugins/*
+basics/M5HW/sync/var/lib/jenkins/plugins/
+basics/M6HW/sync/var/lib/jenkins/plugins/
 
 # PYTHON IGNORE
 

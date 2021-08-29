@@ -1,0 +1,31 @@
+---
+- hosts: all
+
+  roles:
+    - geerlingguy.java
+    - geerlingguy.docker
+
+  tasks:
+    - name: Add jenkins host
+      lineinfile:
+        path: /etc/hosts
+        line: '192.168.99.100 jenkins.dob.lab jenkins'
+    - name: Add docker host
+      lineinfile:
+        path: /etc/hosts
+        line: '192.168.99.101 docker.dob.lab docker'
+    - name: Add vagrant user to docker group
+      user:
+        name: vagrant
+        groups: docker
+        append: yes
+    - name: Install git
+      dnf:
+        name: git
+        state: present
+    - name: Enable HTTP communication
+      firewalld:
+        service: http
+        permanent: true
+        state: enabled
+        immediate: true
