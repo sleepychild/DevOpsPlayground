@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+terraform destroy
+
 vagrant destroy --force --parallel
 
 # Remove docker context
