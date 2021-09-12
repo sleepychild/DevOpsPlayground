@@ -2,7 +2,7 @@
 
 echo "PROVISION MACHINE $HOSTNAME"
 
-echo "Install python3-pip"
+echo "Install python3-pip for ansible"
 sudo apt-get update
 sudo apt-get --assume-yes install python3-pip
 

@@ -149,6 +149,10 @@ dmypy.json
 
 # General
 .vagrant/
+.terraform/
+.terraform*
+terraform*
+*.plan
 
 # Log files (if you are creating logs in debug mode, uncomment this)
 *.log

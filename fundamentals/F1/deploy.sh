@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 # Update boxes
-vagrant box update
+vagrant box update  # Get latest box version
+vagrant box prune   # Remove older box versions
 
 # Vagrant
 vagrant up
