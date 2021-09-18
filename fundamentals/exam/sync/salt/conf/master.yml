@@ -1,0 +1,6 @@
+master_id: main
+file_roots:
+  base:
+    - /sync/salt/
+    - /sync/salt/states
+    - /sync/salt/services

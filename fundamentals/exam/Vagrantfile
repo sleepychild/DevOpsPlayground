@@ -1,0 +1,97 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+  # Default config
+  config.ssh.insert_key = false
+  config.vm.box = "ubuntu/focal64"
+  
+  # Provison
+  config.vm.synced_folder "sync", "/sync"
+  config.vm.provision "shell", path: "provision/set_hosts.sh"
+  config.vm.provision "shell", path: "provision/fix_ssh.sh"
+  config.vm.provision "shell", path: "provision/disable_ufw.sh"
+
+  config.vm.provider :virtualbox do |config_vbox|
+    config_vbox.customize ["modifyvm", :id, "--memory", "768"]
+  end
+
+  # Sub nodes
+  [
+    # ["node1", "192.168.120.101"],
+    # ["node2", "192.168.120.102"],
+  ].each do |node_name,node_ip|
+    config.vm.define "#{node_name}" do |node|
+      node.vm.hostname = "#{node_name}"
+
+      # Node box network definitions and port expose
+      node.vm.network "private_network",
+        name: "vboxnet0",
+        ip: "#{node_ip}",
+        netmask: "24",
+        hostname: true
+
+      # Node box salt minion
+      node.vm.provision :salt do |salt|
+        salt.colorize = true
+        salt.log_level = "all"
+        salt.verbose = true
+        salt.install_type = "stable"
+
+        salt.minion_id = "#{node_name}"
+        salt.minion_config = "sync/salt/conf/minion.yml"
+
+        salt.minion_key = "sync/salt/key/#{node_name}.pem"
+        salt.minion_pub = "sync/salt/key/#{node_name}.pub"
+      end
+    end
+  end
+
+  # Main node
+  config.vm.define "main" do |node|
+    node.vm.hostname = "main"
+    
+    node.vm.provider :virtualbox do |config_vbox|
+      config_vbox.customize ["modifyvm", :id, "--memory", "2048"]
+    end
+
+    node.trigger.after :up do |trigger|
+      trigger.run_remote = {
+        path: "sync/scripts/salt_init.sh",
+        args: "*"
+      }
+    end
+
+    # Main box network definitions and port expose
+    node.vm.network "private_network",
+      name: "vboxnet0",
+      ip: "192.168.120.100",
+      netmask: "24",
+      hostname: true
+
+    # Main box salt master
+    node.vm.provision :salt do |salt|
+      salt.colorize = true
+      salt.log_level = "all"
+      salt.verbose = true
+      salt.install_type = "stable"
+
+      salt.install_master = true
+      salt.no_minion = false
+      salt.master_config = "sync/salt/conf/master.yml"
+      salt.minion_config = "sync/salt/conf/minion.yml"
+
+      salt.master_key = "sync/salt/key/main.pem"
+      salt.master_pub = "sync/salt/key/main.pub"
+      salt.minion_key = "sync/salt/key/main.pem"
+      salt.minion_pub = "sync/salt/key/main.pub"
+      
+      salt.seed_master = {
+        "main" => "sync/salt/key/main.pub",
+        # "node1" => "sync/salt/key/node1.pub",
+        # "node2" => "sync/salt/key/node2.pub",
+      }
+    end
+  end
+end
