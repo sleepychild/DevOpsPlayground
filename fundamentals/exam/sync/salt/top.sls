@@ -1,3 +1,5 @@
 base:
   '*':
-    - demo
+    - base
+  'main':
+    - elasticsearch

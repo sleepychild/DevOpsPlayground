@@ -1,4 +1,4 @@
-install.mc:
+install.base:
   pkg:
     - installed
     - pkgs:
@@ -7,3 +7,5 @@ install.mc:
       - tmux
       - htop
       - iftop
+      - python-apt
+      - apt-transport-https
