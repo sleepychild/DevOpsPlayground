@@ -1,0 +1,1 @@
+[Kibana](http://localhost:5601)

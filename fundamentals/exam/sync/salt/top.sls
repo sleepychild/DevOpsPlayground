@@ -2,4 +2,7 @@ base:
   '*':
     - base
   'main':
-    - elasticsearch
+    - elasticinstall
+    - elasticstart
+    - beatsinstall
+    - elasticstop

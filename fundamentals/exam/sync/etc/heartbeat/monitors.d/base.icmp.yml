@@ -1,0 +1,11 @@
+- type: icmp
+  id: base-icmp-monitor
+  name: Base ICMP Monitor
+  enabled: true
+  schedule: '@every 30s' # every 5 seconds from start of beat
+  hosts: ["main", "node1", "node2"]
+  ipv4: true
+  ipv6: true
+  mode: any
+  timeout: 16s
+  wait: 1s
