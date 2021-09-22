@@ -26,4 +26,9 @@ sudo salt '*' state.apply # top.sls on all
 # sudo salt 'main' state.apply 06_elastic_stop
 
 sudo salt '*' state.apply 07_docker_install
-sudo salt '*' state.apply 08_kubernetes_install
+
+# sudo salt '*' state.apply 08_kubernetes_install
+
+# sudo salt '*' state.apply 09_terraform_install
+
+sudo salt '*' state.apply 10_concourse

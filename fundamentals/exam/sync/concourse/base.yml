@@ -1,0 +1,27 @@
+---
+resources:
+- name: app
+  type: git
+  source:
+    uri: https://github.com/shekeriev/dof-exam-2021
+    branch: main
+
+image_resource:
+  type: registry-image
+  source:
+    repository: hashicorp/terraform
+    tag: 'latest'
+
+jobs:
+- name: get-app
+  plan:
+  - get: app
+    trigger: true
+  
+- name: build-app
+  plan:
+  - get: app
+    passed: [get-app]
+    trigger: true
+  - task: list
+    

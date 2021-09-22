@@ -19,7 +19,7 @@ Vagrant.configure("2") do |config|
 
   # Sub nodes
   [
-    ["node1", "192.168.120.101"],
+    # ["node1", "192.168.120.101"],
     # ["node2", "192.168.120.102"],
   ].each do |node_name,node_ip|
     config.vm.define "#{node_name}" do |node|
@@ -76,6 +76,12 @@ Vagrant.configure("2") do |config|
       host: 2375, 
       auto_correct: true
 
+    # concourse remote
+    node.vm.network "forwarded_port",
+      guest: 8080, 
+      host: 8080, 
+      auto_correct: true
+
     # Elastic Search
     node.vm.network "forwarded_port",
       guest: 9200, 
@@ -118,7 +124,7 @@ Vagrant.configure("2") do |config|
       
       salt.seed_master = {
         "main" => "sync/salt/key/main.pub",
-        "node1" => "sync/salt/key/node1.pub",
+        # "node1" => "sync/salt/key/node1.pub",
         # "node2" => "sync/salt/key/node2.pub",
       }
     end
