@@ -14,12 +14,12 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", path: "provision/disable_ufw.sh"
 
   config.vm.provider :virtualbox do |config_vbox|
-    config_vbox.customize ["modifyvm", :id, "--memory", "768"]
+    config_vbox.customize ["modifyvm", :id, "--memory", "2048"]
   end
 
   # Sub nodes
   [
-    # ["node1", "192.168.120.101"],
+    ["node1", "192.168.120.101"],
     # ["node2", "192.168.120.102"],
   ].each do |node_name,node_ip|
     config.vm.define "#{node_name}" do |node|
@@ -59,7 +59,7 @@ Vagrant.configure("2") do |config|
     node.trigger.after :up do |trigger|
       trigger.run_remote = {
         path: "sync/scripts/salt_init.sh",
-        args: "*"
+        args: ["*", "main"]
       }
     end
 
@@ -70,10 +70,22 @@ Vagrant.configure("2") do |config|
       netmask: "24",
       hostname: true
 
+    # Docker remote
+    node.vm.network "forwarded_port",
+      guest: 2375, 
+      host: 2375, 
+      auto_correct: true
+
     # Elastic Search
     node.vm.network "forwarded_port",
       guest: 9200, 
       host: 9200, 
+      auto_correct: true
+
+    # Logstash
+    node.vm.network "forwarded_port",
+      guest: 5044, 
+      host: 5044, 
       auto_correct: true
 
     # Kibana
@@ -106,7 +118,7 @@ Vagrant.configure("2") do |config|
       
       salt.seed_master = {
         "main" => "sync/salt/key/main.pub",
-        # "node1" => "sync/salt/key/node1.pub",
+        "node1" => "sync/salt/key/node1.pub",
         # "node2" => "sync/salt/key/node2.pub",
       }
     end

@@ -1,19 +1,3 @@
-addrepo.elasticsearch:
-  pkgrepo.managed:
-    - humanname: ElasticSearch
-    - name: deb https://artifacts.elastic.co/packages/7.x/apt stable main
-    - dist: stable
-    - file: /etc/apt/sources.list.d/elasticsearch.list
-    - keyid: D88E42B4
-    - keyserver: pgp.mit.edu
-    - require_in:
-      - pkg: elasticsearch
-    - retry:
-        attempts: 10
-        until: True
-        interval: 60
-        splay: 10
-
 install.elasticsearch:
   pkg.installed:
     - name: elasticsearch
@@ -33,6 +17,13 @@ configure.elasticsearch.node.name:
     - match: "#node.name:"
     - content: "node.name: main"
 
+configure.elasticsearch.bootstrap.memory_lock:
+  file.line:
+    - name: /etc/elasticsearch/elasticsearch.yml
+    - mode: replace
+    - match: "#bootstrap.memory_lock: true"
+    - content: "bootstrap.memory_lock: false"
+
 configure.elasticsearch.network.host:
   file.line:
     - name: /etc/elasticsearch/elasticsearch.yml
@@ -47,12 +38,15 @@ configure.elasticsearch.http.port:
     - match: "#http.port: 9200"
     - content: "http.port: 9200"
 
-configure.elasticsearch.discovery.seed_hosts:
-  file.line:
-    - name: /etc/elasticsearch/elasticsearch.yml
-    - mode: replace
-    - match: "#discovery.seed_hosts:"
-    - content: 'discovery.seed_hosts: ["node1", "node2"]'
+# at least one of [discovery.seed_hosts, discovery.seed_providers, cluster.initial_master_nodes] must be configured
+
+# No need for clustering
+# configure.elasticsearch.discovery.seed_hosts:
+#   file.line:
+#     - name: /etc/elasticsearch/elasticsearch.yml
+#     - mode: replace
+#     - match: "#discovery.seed_hosts:"
+#     - content: 'discovery.seed_hosts: ["node1", "node2"]'
 
 configure.elasticsearch.cluster.initial_master_nodes:
   file.line:
@@ -61,15 +55,43 @@ configure.elasticsearch.cluster.initial_master_nodes:
     - match: "#cluster.initial_master_nodes:"
     - content: 'cluster.initial_master_nodes: ["main"]'
 
+/etc/elasticsearch/jvm.options.d/heapsize.options:
+  file.copy:
+    - makedirs: true
+    - source: /sync/etc/elasticsearch/jvm.options.d/heapsize.options
+
 install.logstash:
   pkg.installed:
     - name: logstash
     - refresh: True
 
+configure.logstash.ms:
+  file.line:
+    - name: /etc/logstash/jvm.options
+    - mode: replace
+    - match: "-Xms1g"
+    - content: '-Xms768m'
+
+configure.logstash.mx:
+  file.line:
+    - name: /etc/logstash/jvm.options
+    - mode: replace
+    - match: "-Xmx1g"
+    - content: '-Xmx768m'
+
+# This has no effect
+configure.logstash.MaxPermSize:
+  file.append:
+    - name: /etc/logstash/jvm.options
+    - text: |
+
+        # Set max perms size
+        -XX:MaxPermSize=128mb
+
 /etc/logstash/conf.d/beats.conf:
   file.copy:
     - makedirs: true
-    - source: /sync//etc/logstash/conf.d/beats.conf
+    - source: /sync/etc/logstash/conf.d/beats.conf
 
 install.kibana:
   pkg.installed:
@@ -104,7 +126,6 @@ configure.kibana.elasticsearch.hosts:
     - match: "#elasticsearch.hosts:"
     - content: 'elasticsearch.hosts: ["http://main:9200"]'
 
-# Overwriting ILM policy is disabled. Set `setup.ilm.overwrite: true` for enabling.
 configure.kibana.uiSettings.overrides:
   file.append:
     - name: /etc/kibana/kibana.yml
@@ -112,3 +133,10 @@ configure.kibana.uiSettings.overrides:
         uiSettings:
           overrides:
             "theme:darkMode": true
+
+configure.kibana.node.max_old_space_size:
+  file.line:
+    - name: /etc/kibana/node.options
+    - mode: replace
+    - match: "#--max-old-space-size=4096"
+    - content: '--max-old-space-size=1024'

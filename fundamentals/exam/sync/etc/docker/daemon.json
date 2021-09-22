@@ -1,0 +1,6 @@
+{
+    "debug": true, 
+    "tls": false, 
+    "insecure-registries": ["192.168.201.120:5000"],
+    "exec-opts": ["native.cgroupdriver=systemd"]
+}
