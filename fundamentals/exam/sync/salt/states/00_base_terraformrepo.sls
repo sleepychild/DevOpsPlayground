@@ -1,7 +1,7 @@
 addrepo.terraform:
   cmd.script:
     - name: "Add Terraform Repo"
-    - source: "/sync/scripts/terraform_repo.sh"
+    - source: "/sync/scripts/_terraform_repo.sh"
     - retry:
         attempts: 10
         until: True

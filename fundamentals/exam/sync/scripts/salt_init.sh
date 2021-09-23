@@ -29,6 +29,6 @@ sudo salt '*' state.apply 07_docker_install
 
 # sudo salt '*' state.apply 08_kubernetes_install
 
-# sudo salt '*' state.apply 09_terraform_install
+sudo salt 'main' state.apply 09_terraform_install
 
-sudo salt '*' state.apply 10_concourse
+sudo salt 'main' state.apply 10_concourse

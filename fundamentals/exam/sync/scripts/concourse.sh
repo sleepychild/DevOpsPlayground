@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
 
-sudo rm -rf concourse || true
-sudo mkdir concourse || true
+rm -rf concourse || true
+mkdir concourse || true
 pushd concourse
     curl -O https://concourse-ci.org/docker-compose.yml
     docker-compose up -d
+popd
+
+pushd /usr/local/bin/
+    curl -o fly "http://localhost:8080/api/v1/cli?arch=amd64&platform=linux"
+    chmod 755 fly
 popd
